@@ -1,10 +1,10 @@
 @extends('templatesFutsal.layout')
 @section('css')
     @parent
-    <link href="{{ asset('public/style/plugins/sweetalert/sweetalert.css')}}" rel="stylesheet" />
-    <link href="{{ asset('public/style/plugins/waitme/waitMe.css')}}" rel="stylesheet" />
+    <link href="{{ asset('style/plugins/sweetalert/sweetalert.css')}}" rel="stylesheet" />
+    <link href="{{ asset('style/plugins/waitme/waitMe.css')}}" rel="stylesheet" />
         <!-- JQuery DataTable Css -->
-    <link href="{{ asset('public/style/plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css') }}" rel="stylesheet">
+    <link href="{{ asset('style/plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css') }}" rel="stylesheet">
         <!-- Bootstrap Select Css -->
     <!--<link href="{{ asset('public/style/plugins/bootstrap-select/css/bootstrap-select.css') }}" rel="stylesheet" />-->
 @endsection
@@ -116,30 +116,30 @@
     @endsection
     @section('js')
         @parent
-        <script src="{{ asset('public/style/plugins/sweetalert/sweetalert.min.js')}}"></script>
-        <script src="{{ asset('public/style/plugins/jquery-slimscroll/jquery.slimscroll.js')}}"></script>
-        <script src="{{ asset('public/style/plugins/jquery-validation/jquery.validate.js') }}"></script>
-        <script src="{{ asset('public/style/plugins/jquery-steps/jquery.steps.js')}}"></script>
-        <script src="{{ asset('public/style/plugins/jquery-validation/jquery.validate.js')  }}"></script>
-        <script src="{{ asset('public/style/js/pages/forms/form-validation.js')}}"></script>
-        <script src="{{ asset('public/style/plugins/autosize/autosize.js')}}"></script>
-        <script src="{{ asset('public/style/plugins/momentjs/moment.js')}}"></script>
-        <script src="{{ asset('public/style/plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js') }}"></script>
+        <script src="{{ asset('style/plugins/sweetalert/sweetalert.min.js')}}"></script>
+        <script src="{{ asset('style/plugins/jquery-slimscroll/jquery.slimscroll.js')}}"></script>
+        <script src="{{ asset('style/plugins/jquery-validation/jquery.validate.js') }}"></script>
+        <script src="{{ asset('style/plugins/jquery-steps/jquery.steps.js')}}"></script>
+        <script src="{{ asset('style/plugins/jquery-validation/jquery.validate.js')  }}"></script>
+        <script src="{{ asset('style/js/pages/forms/form-validation.js')}}"></script>
+        <script src="{{ asset('style/plugins/autosize/autosize.js')}}"></script>
+        <script src="{{ asset('style/plugins/momentjs/moment.js')}}"></script>
+        <script src="{{ asset('style/plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js') }}"></script>
 
 
         <!-- Jquery DataTable Plugin Js -->
-        <script src="{{ asset('public/style/plugins/jquery-datatable/jquery.dataTables.js') }}"></script>
-        <script src="{{ asset('public/style/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js') }}"></script>
-        <script src="{{ asset('public/style/plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js') }}"></script>
-        <script src="{{ asset('public/style/plugins/jquery-datatable/extensions/export/buttons.flash.min.js') }}"></script>
-        <script src="{{ asset('public/style/plugins/jquery-datatable/extensions/export/jszip.min.js') }}"></script>
-        <script src="{{ asset('public/style/plugins/jquery-datatable/extensions/export/pdfmake.min.js') }}"></script>
-        <script src="{{ asset('public/style/plugins/jquery-datatable/extensions/export/vfs_fonts.js') }}"></script>
-        <script src="{{ asset('public/style/plugins/jquery-datatable/extensions/export/buttons.html5.min.js') }}"></script>
-        <script src="{{ asset('public/style/plugins/jquery-datatable/extensions/export/buttons.print.min.js') }}"></script>
+        <script src="{{ asset('style/plugins/jquery-datatable/jquery.dataTables.js') }}"></script>
+        <script src="{{ asset('style/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js') }}"></script>
+        <script src="{{ asset('style/plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js') }}"></script>
+        <script src="{{ asset('style/plugins/jquery-datatable/extensions/export/buttons.flash.min.js') }}"></script>
+        <script src="{{ asset('style/plugins/jquery-datatable/extensions/export/jszip.min.js') }}"></script>
+        <script src="{{ asset('style/plugins/jquery-datatable/extensions/export/pdfmake.min.js') }}"></script>
+        <script src="{{ asset('style/plugins/jquery-datatable/extensions/export/vfs_fonts.js') }}"></script>
+        <script src="{{ asset('style/plugins/jquery-datatable/extensions/export/buttons.html5.min.js') }}"></script>
+        <script src="{{ asset('style/plugins/jquery-datatable/extensions/export/buttons.print.min.js') }}"></script>
 
         <!-- Custom Js -->
-        <script src="{{ asset('public/style/js/pages/tables/jquery-datatable.js') }}"></script>
-        <script src="{{ asset('public/style/js/pages/forms/basic-form-elements.js') }}"></script>
-        <script src="{{ asset('public/style/js/demo.js')}}"></script>
+        <script src="{{ asset('style/js/pages/tables/jquery-datatable.js') }}"></script>
+        <script src="{{ asset('style/js/pages/forms/basic-form-elements.js') }}"></script>
+        <script src="{{ asset('style/js/demo.js')}}"></script>
     @endsection

@@ -7,6 +7,7 @@ use App\Category;
 use Illuminate\Http\Request;
 use Validator;
 use Session;
+use Auth;
 class FieldController extends Controller
 {
     /**
@@ -22,7 +23,7 @@ class FieldController extends Controller
     public function viewDashboard()
     {
         $jenisLapangan  = Category::with('field')->get();
-        $lapangan = Field::with('category')->get();
+        $lapangan = Field::with('category')->where('customer_id',Auth::user()->id)->get();
         return view('customer.fieldDashboard',['jenisLapangan'=>$jenisLapangan,'lapangan'=>$lapangan]);
     }
 
@@ -32,9 +33,8 @@ class FieldController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
+    public function create($field_id){
+        
     }
 
     /**
@@ -58,9 +58,9 @@ class FieldController extends Controller
         $request->picture->move(public_path('/images'), $namaFile);
         $lapangan = new Field($request->all());
         $lapangan -> picture = $namaFile;
-        $lapangan -> customer_id = '1';
+        $lapangan -> customer_id = Auth::user()->id;
         $lapangan->save();
-        return redirect('/dashboardAdmin');
+        return redirect('/customer/field');
     }
 
     /**

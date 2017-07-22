@@ -35,9 +35,15 @@ Route::resource('lapangan','FieldController');
 
 //SCHEDULE DASHBOARD
 Route::GET('customer/schedule','ScheduleController@index');
+Route::GET('jadwal/{id}/{day}','ScheduleController@viewScheduleByDay');
+Route::GET('jadwal/{id}/{day}/create','ScheduleController@create');
+Route::POST('jadwal/{id}/{day}/store','ScheduleController@store');
+
 
 //FIELD DASHBOARD
 Route::GET('customer/field','FieldController@viewDashboard');
+
+
 
 //TRANSACTION DASHBOARD
 Route::GET('customer/transaction','TransactionController@index');

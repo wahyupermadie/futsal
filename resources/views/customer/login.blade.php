@@ -4,8 +4,8 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Bungloon - Sign in form</title>
-    <link href="{{ asset('public/style/login/css/style.css') }}" rel="stylesheet">
-    <link href="{{ asset('public/style/login/plugin/FontAwesome/css/font-awesome.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('style/login/css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('style/login/plugin/FontAwesome/css/font-awesome.min.css') }}" rel="stylesheet">
 </head>
 <body>
 	<div id="container" class="bungloon-outline" data-background="{{ asset('public/style/login/img/bg.jpg') }}">
@@ -13,7 +13,7 @@
 			<div class="logo">
 				<span style="color:rgba(255,255,255,.4);">Sign in form</span>
 				<!--<h1 style="font-size:32pt;letter-spacing:-3px;">BUNG<span style="color:yellow">LOON</span></h1>-->
-                <img  src="{{ asset('public/style/login/img/logo.png' )}}" alt="logoFutnet">
+                <img  src="{{ asset('style/login/img/logo.png' )}}" alt="logoFutnet">
 			</div>
 			<div class="form">
 				<form method="POST" action="{{ route('customer.login') }}">
@@ -43,7 +43,7 @@
 			</div>
 		</div>
 	</div>
-    <script src="{{ asset('public/style/login/plugin/jQuery/jquery-3.2.1.slim.min.js') }}"></script>
-    <script src="{{ asset('public/style/login/js/script.js') }}"></script>
+    <script src="{{ asset('style/login/plugin/jQuery/jquery-3.2.1.slim.min.js') }}"></script>
+    <script src="{{ asset('style/login/js/script.js') }}"></script>
 </body>
 </html>

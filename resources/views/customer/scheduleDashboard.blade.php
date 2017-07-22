@@ -11,7 +11,7 @@
                     <div class="card">
                         <div class="header">
                             <h2>
-                                JADWAL DASHBOARD
+                                PILIH LAPANGAN
                             </h2>
                             <ul class="header-dropdown m-r--5">
                                 <li class="dropdown">
@@ -27,46 +27,21 @@
                             </ul>
                         </div>
                         <div class="body">
-                            <form>
-                                <div class="row clearfix">
-                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
-                                        <label>Jam Mulai</label>
-                                            <select id="jammulai" name="jammulai" class="form-control">
-                                            <option value="" disabled selected>Choose your option</option>
-                                                @for($i=6;$i<=11;$i++)
-                                                    <option value="{{$i}}">{{$i}}:00</option>
-                                                @endfor
-                                            </select>
-                                    </div>
-                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
-                                        <label>Jam Akhir</label>
-                                            <select id="jamakhir" name="jamakhir" class="form-control">
-                                            <option value="" disabled selected>Choose your option</option>
-                                                @for($j=19;$j<=24;$j++)
-                                                    <option value="{{$j}}">{{$j}}:00</option>
-                                                @endfor
-                                            </select>
-                                    </div>
-                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
-                                            <div class="form-line">
-                                                <input type="number" id="hargapelajar" name="hargapelajar" class="form-control" placeholder="Harga Pelajar">
-                                            </div>                                    
-                                    </div>
-                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
-                                            <div class="form-line">
-                                                <input type="number" id="hargaumum" name="hargaumum" class="form-control" placeholder="Harga Umum">
+                            <div class="row">
+                                @foreach($field as $value)
+                                    <div class="col s12 m4">
+                                        <div class="card small">
+                                            <div class="card-image">
+                                                <img src='{{asset("images/$value->picture")}}'>
                                             </div>
+                                            <div class="card-content">
+                                                <span class="card-title grey-text text-darken-4">{{$value->name}}</span>
+                                                <p><a href='{{url("/jadwal/$value->id/create")}}'>Edit Jadwal</a></p>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div>
-                                        <button type="button" class="btn btn-primary btn-lg m-l-15 waves-effect">SUBMIT</button>
-                                    </div>
-                                </div>
-                            </form>
-                            <form id="schedule_form">
-                            <table class="table bordered" id="table-input">
-                                
-                            </table>	    
-                        </form>
+                                @endforeach
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -105,7 +80,7 @@
 			$("#table-input").html(input);
 		}
 	</script>
-    <script src="{{ asset('public/style/js/materialize.js') }}" >
-    <script src="{{ asset('public/style/js/materialize.min.js') }}" >
+    <script src="{{ asset('public/style/js/materialize.js') }}" />
+    <script src="{{ asset('public/style/js/materialize.min.js') }}" />
 
 @endsection
