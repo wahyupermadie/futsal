@@ -87,6 +87,43 @@
                             </ul>
                         </div>
                         <div class="body">
+                            <ul class="nav nav-tabs tab-nav-right" role="tablist">
+                                <?php $first=true; ?>
+                                @foreach($field as $value)
+                                    <li role="presentation" @if($first) class="active" @endif><a href="#field{{$value->id}}" data-toggle="tab">{{$value->name}}</a></li>
+                                    <?php $first=false; ?>
+                                @endforeach
+                                <!-- <li role="presentation"><a href="#listField" data-toggle="tab">LIST FIELD</a></li> -->
+                            </ul>
+
+                            <div class="tab-content">
+                            <?php $first=true; ?>
+                            @foreach($field as $value)
+                                <div role="tabpanel" class="tab-pane fade @if($first) in active @endif" id="field{{$value->id}}">
+                                    <table class="table">
+                                        <tr>
+                                            <td>Jam</td>
+                                            <td>Harga Pelajar</td>
+                                            <td>Harga Umum</td>
+                                            <td>Status</td>
+                                        </tr>
+                                        @foreach($value->schedule as $schedule)
+                                            <tr>
+                                                <td>{{$schedule->start_at}} - {{$schedule->finish_at}}</td>
+                                                <td>{{$schedule->pelajar}}</td>
+                                                <td>{{$schedule->umum}}</td>
+                                                @if(is_null($schedule->transaction))
+                                                    <td>Kosong</td>
+                                                @else
+                                                    <td>Ada</td>
+                                                @endif
+                                            </tr>
+                                        @endforeach
+                                    </table>
+                                </div>
+                                <?php $first=false; ?>
+                            @endforeach
+                            </div>
                             <div id="real_time_chart" class="dashboard-flot-chart"></div>
                         </div>
                     </div>

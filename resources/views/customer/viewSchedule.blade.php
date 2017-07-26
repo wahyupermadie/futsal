@@ -62,6 +62,11 @@
                                     </tbody>
                                 </table>
                                 <a href='{{url("jadwal/$field_id/$day/create")}}' class="btn btn-primary">Edit Jadwal</a>
+                                <form action='{{url("jadwal/$field_id/$day/copy")}}' method="post">
+                                    {{csrf_field()}}
+                                    <input type="hidden" name="from" value="1">
+                                    <button type="submit">Copy From Senin</button>
+                                </form>
                             </div>
                         </div>
                     </div>

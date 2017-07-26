@@ -159,4 +159,39 @@ class ScheduleController extends Controller
     {
         //
     }
+
+    public function copy(Request $request,$field_id,$day){
+        if ($day=='senin') {
+            $day_id=1;
+        }else if ($day=='selasa') {
+            $day_id=2;
+        }else if ($day=='rabu') {
+            $day_id=3;
+        }else if ($day=='kamis') {
+            $day_id=4;
+        }else if ($day=='jumat') {
+            $day_id=5;
+        }else if ($day=='sabtu') {
+            $day_id=6;
+        }else if ($day=='minggu') {
+            $day_id=7;
+        }else {
+            return redirect("/jadwal/".$field_id."/senin/create");
+        }
+        $from=$request->from;
+        $scheduleFrom = Schedule::where([['field_id',$field_id],['day_id',$from]])->get();
+
+        foreach ($scheduleFrom as $key => $value) {
+            $schedule = new Schedule;
+            $schedule->field_id=$field_id;
+            $schedule->day_id=$day_id;
+            $schedule->start_at=$value->start_at;
+            $schedule->finish_at=$value->finish_at;
+            $schedule->pelajar=$value->pelajar;
+            $schedule->umum=$value->umum;
+            $schedule->save();
+        }
+
+        // return $scheduleFrom;
+    }
 }

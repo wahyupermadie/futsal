@@ -12,4 +12,8 @@ class Field extends Model
     {
         return $this->belongsTo('App\Category');
     }
+
+    public function schedule(){
+    	return $this->hasMany('App\Schedule');
+    }
 }

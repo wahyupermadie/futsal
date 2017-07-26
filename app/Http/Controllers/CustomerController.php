@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Field;
 use App\Category;
+use App\Schedule;
 use Illuminate\Http\Request;
 use Auth;
 class CustomerController extends Controller
@@ -16,6 +17,7 @@ class CustomerController extends Controller
     public function __construct()
     {
         $this->middleware('auth:customer');
+        date_default_timezone_set('Asia/Singapore');
     }
 
     /**
@@ -23,11 +25,20 @@ class CustomerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        $jenisLapangan  = Category::with('field')->get();
-        $lapangan = Field::with('category')->get();
-        return view('customer.index',['jenisLapangan'=>$jenisLapangan,'lapangan'=>$lapangan]);
+    public function index(){
+        $date=date("Y-m-d");
+        $day= date_format(date_create($date),'N');
+        $field= Field::with(['schedule'=>function($query) use($day){
+            $query->where('day_id',$day);
+        },
+        'schedule.transaction'=>function($query) use($date){
+            $query->where('played_at',$date);
+        }
+        ])->where('customer_id',Auth::user()->id)->get();
+// echo "<pre>";
+// return $field;
+        return view('customer.index')
+        ->with('field',$field);
     }
     
 }
