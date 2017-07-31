@@ -13,4 +13,8 @@ class Schedule extends Model
     public function transaction(){
     	return $this->hasOne('App\Transaction');
     }
+
+    public function field(){
+        return $this->belongsTo('App\Field');
+    }
 }

@@ -1,6 +1,5 @@
 @extends('templatesFutsal.layout')
 @section('css')
-@parent
     <link href="{{ asset('public/style/css/materialize.css') }}" rel="stylesheet">
     <link href="{{ asset('public/style/css/materialize.min.css') }}" rel="stylesheet">
 @endsection

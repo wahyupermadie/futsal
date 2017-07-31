@@ -45,6 +45,7 @@
                                                 <td>Jam</td>
                                                 <td>Harga Pelajar</td>
                                                 <td>Harga Umum</td>
+                                                <td>Action</td>
                                             </tr>
                                         </thead>
                                         <tbody id="section">

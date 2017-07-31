@@ -43,6 +43,7 @@
                                             <td>Jam</td>
                                             <td>Harga Pelajar</td>
                                             <td>Harga Umum</td>
+                                            <td>Action<td>
                                         </tr>
                                     </thead>
                                     <tbody id="section">
@@ -56,6 +57,9 @@
                                             </td>
                                             <td>
                                                 {{$schedule->umum}}
+                                            </td>
+                                            <td>
+                                                <a href="" class="btn btn-success">Edit</a>
                                             </td>
                                         </tr>
                                         @endforeach

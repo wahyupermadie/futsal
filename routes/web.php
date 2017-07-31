@@ -48,7 +48,9 @@ Route::GET('customer/field','FieldController@viewDashboard');
 
 //TRANSACTION DASHBOARD
 Route::GET('customer/transaction','TransactionController@index');
-
+Route::GET('customer/booking/pending/{id}/{transaksi}','TransactionController@viewPending');
+Route::GET('customer/booking/success/{id}','TransactionController@viewSuccess');
+Route::resource('booking/konfirmasi','TransactionController');
 
 //API
 Route::get('/api','ApiController@index');

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
+use App\Transaction;
 
 class TransactionController extends Controller
 {
@@ -25,6 +27,23 @@ class TransactionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function viewPending($id, $id_transaksi)
+    {
+
+        $user = User::with(['transaction'=>function($query) use($id,$id_transaksi){
+                $query->where(['user_id'=>$id,'id'=>$id_transaksi]);
+        }])->first();
+        return view('customer.schedulePending')
+        ->with(['user'=>$user,'transaksi'=>$id_transaksi]);
+    }
+
+    public function viewSuccess($id)
+    {
+        $user = User::all()->where('id',$id)->first();
+        return view('customer.scheduleSuccess')
+        ->with('user',$user);    
+    }
     public function create()
     {
         //
@@ -72,7 +91,10 @@ class TransactionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $transaksi = Transaction::find($id);
+        return $transaksi;
+        $transaksi->status = "Success";
+        $transaksi->save();
     }
 
     /**
@@ -83,6 +105,7 @@ class TransactionController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $data = Transaction::find($id)->delete();
+        return $data;
     }
 }

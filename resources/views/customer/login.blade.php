@@ -8,7 +8,7 @@
     <link href="{{ asset('style/login/plugin/FontAwesome/css/font-awesome.min.css') }}" rel="stylesheet">
 </head>
 <body>
-	<div id="container" class="bungloon-outline" data-background="{{ asset('public/style/login/img/bg.jpg') }}">
+	<div id="container" class="bungloon-outline" data-background="{{ asset('style/login/img/bg.jpg') }}">
 		<div class="box box-sm">
 			<div class="logo">
 				<span style="color:rgba(255,255,255,.4);">Sign in form</span>
