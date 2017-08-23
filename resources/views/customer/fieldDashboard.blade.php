@@ -44,7 +44,7 @@
                                                 <input type="text" class="form-control" name="name" required>
                                             </div>
                                         </div>
-                                        <div class="row">
+                                        <!-- <div class="row"> -->
                                         <label>Jenis Lapangan</label>
                                             <select id="category_id" name="category_id" class="form-control">
                                                 @foreach($jenisLapangan as $value)
@@ -54,7 +54,6 @@
                                                     <?php echo $value->name ?></option>
                                                 @endforeach
                                             </select>
-                                        </div>
                                         <div class="form-group">
                                             <div class="form-line">
                                             <label>Gambar Lapangan</label>
@@ -96,7 +95,7 @@
                                                     <td><img src="{{asset('public/images/'.$value->picture)}}" style="width:300px" alt=""></td>
                                                     <td>{{$value->category->name}}</td>
                                                     <td>
-                                                       <a href="{{('lapangan/'.$value->id.'/edit')}}" class="btn btn-success">EDIT</a>
+                                                       <a href="{{url('lapangan/'.$value->id.'/edit')}}" class="btn btn-success">EDIT</a>
                                                     
                                                         <form method="POST">
                                                             <button type="submit" class="btn btn-danger" >DELETE</button>

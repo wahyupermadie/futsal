@@ -28,17 +28,23 @@
                         <div class="body">
                             <div class="row">
                                 @foreach($field as $value)
-                                    <div class="col s12 m4">
-                                        <div class="card small">
-                                            <div class="card-image">
-                                                <img src='{{asset("images/$value->picture")}}'>
-                                            </div>
-                                            <div class="card-content">
-                                                <span class="card-title grey-text text-darken-4">{{$value->name}}</span>
-                                                <p><a href='{{url("/jadwal/$value->id/create")}}'>Edit Jadwal</a></p>
-                                            </div>
+                                <div class="col-md-4 col-sm-6">
+                                    <div class="panel panel-default text-center">
+                                        <div class="panel-heading">
+                                            <img src='{{asset("images/$value->picture")}}' alt="..." class="img-rounded" class="img-responsive" style="width: 280px; height: 180px">
+                                        </div>
+                                        <div class="panel-body" style="padding:0px !important;">
+                                            <table style="margin:0px;"class="table">
+                                                <tr align="center">
+                                                    <td>
+                                                        <h3>{{$value->name}}</h3>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <p><a class="btn btn-primary" href='{{url("/jadwal/$value->id/create")}}'>Edit Jadwal</a></p>
                                         </div>
                                     </div>
+                                </div>
                                 @endforeach
                             </div>
                         </div>

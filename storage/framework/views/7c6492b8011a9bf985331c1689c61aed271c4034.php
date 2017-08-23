@@ -44,7 +44,7 @@
                                                 <input type="text" class="form-control" name="name" required>
                                             </div>
                                         </div>
-                                        <div class="row">
+                                        <!-- <div class="row"> -->
                                         <label>Jenis Lapangan</label>
                                             <select id="category_id" name="category_id" class="form-control">
                                                 <?php $__currentLoopData = $jenisLapangan; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -56,7 +56,6 @@
                                                     <?php echo $value->name ?></option>
                                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                             </select>
-                                        </div>
                                         <div class="form-group">
                                             <div class="form-line">
                                             <label>Gambar Lapangan</label>
@@ -98,7 +97,7 @@
                                                     <td><img src="<?php echo e(asset('public/images/'.$value->picture)); ?>" style="width:300px" alt=""></td>
                                                     <td><?php echo e($value->category->name); ?></td>
                                                     <td>
-                                                       <a href="<?php echo e(('lapangan/'.$value->id.'/edit')); ?>" class="btn btn-success">EDIT</a>
+                                                       <a href="<?php echo e(url('lapangan/'.$value->id.'/edit')); ?>" class="btn btn-success">EDIT</a>
                                                     
                                                         <form method="POST">
                                                             <button type="submit" class="btn btn-danger" >DELETE</button>

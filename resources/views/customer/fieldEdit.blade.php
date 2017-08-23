@@ -45,7 +45,7 @@
                 </select>
             </div>
             <div class="form-line">
-                <img src="{{asset('public/images/'.$field->picture)}}" alt="" style="width:200px; padding-top:20px; padding-bottom:5px;">
+                <img src="{{asset('images/'.$field->picture)}}" alt="" style="width:200px; padding-top:20px; padding-bottom:5px;">
                 <input type="file" class="form-control" name="picture">
             </div>
             <div class="form-group">

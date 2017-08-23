@@ -27,17 +27,30 @@
                         <div class="body">
                             <div class="row">
                                 <?php $__currentLoopData = $field; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                    <div class="col s12 m4">
-                                        <div class="card small">
-                                            <div class="card-image">
-                                                <img src='<?php echo e(asset("images/$value->picture")); ?>'>
-                                            </div>
-                                            <div class="card-content">
-                                                <span class="card-title grey-text text-darken-4"><?php echo e($value->name); ?></span>
-                                                <p><a href='<?php echo e(url("/jadwal/$value->id/create")); ?>'>Edit Jadwal</a></p>
-                                            </div>
+                                <!-- <div class="card" style="width: 20rem;">
+                                    <img class="card-img-top" style="width:318px;height:180px;" src='<?php echo e(asset("images/$value->picture")); ?>' alt="Card image cap">
+                                    <div class="card-block">
+                                        <h4 class="card-title"><?php echo e($value->name); ?></h4>
+                                        <p><a class="btn btn-primary" href='<?php echo e(url("/jadwal/$value->id/create")); ?>'>Edit Jadwal</a></p>
+                                    </div>
+                                </div> -->
+                                <div class="col-md-4 col-sm-6">
+                                    <div class="panel panel-default text-center">
+                                        <div class="panel-heading">
+                                            <img src='<?php echo e(asset("images/$value->picture")); ?>' alt="..." class="img-rounded" class="img-responsive" style="width: 280px; height: 180px">
+                                        </div>
+                                        <div class="panel-body" style="padding:0px !important;">
+                                            <table style="margin:0px;"class="table">
+                                                <tr align="center">
+                                                    <td>
+                                                        <h3><?php echo e($value->name); ?></h3>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <p><a class="btn btn-primary" href='<?php echo e(url("/jadwal/$value->id/create")); ?>'>Edit Jadwal</a></p>
                                         </div>
                                     </div>
+                                </div>
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </div>
                         </div>

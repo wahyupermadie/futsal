@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/','CustomerController@index');
 
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
@@ -43,6 +41,7 @@ Route::POST('jadwal/{id}/{day}/copy','ScheduleController@copy');
 
 //FIELD DASHBOARD
 Route::GET('customer/field','FieldController@viewDashboard');
+Route::resource('customer','FieldController');
 
 
 
