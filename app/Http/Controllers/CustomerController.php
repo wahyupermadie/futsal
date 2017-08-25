@@ -36,7 +36,8 @@ class CustomerController extends Controller
             $query->where('day_id',$day);
         },
         'schedule.transaction'=>function($query) use($date){
-            $query->join('users','users.id','user_id')
+            $query->select('transactions.*','users.name')
+            ->join('users','users.id','=','transactions.user_id')
             ->where('played_at',$date);
         }
         ])->where('customer_id',Auth::user()->id)->get();

@@ -38,11 +38,13 @@ class TransactionController extends Controller
         ->with(['user'=>$user,'transaksi'=>$id_transaksi]);
     }
 
-    public function viewSuccess($id)
+    public function viewSuccess($id, $id_transaksi)
     {
-        $user = User::all()->where('id',$id)->first();
+        $user = User::with(['transaction'=>function($query) use($id,$id_transaksi){
+            $query->where(['user_id'=>$id,'id'=>$id_transaksi]);
+        }])->first();
         return view('customer.scheduleSuccess')
-        ->with('user',$user);    
+        ->with(['user'=>$user,'transaksi'=>$id_transaksi]);   
     }
     public function create()
     {
@@ -92,11 +94,25 @@ class TransactionController extends Controller
     public function update(Request $request, $id)
     {
         $transaksi = Transaction::find($id);
-        return $transaksi;
         $transaksi->status = "Success";
         $transaksi->save();
     }
 
+    public function updateType(Request $request, $id_transaksi, $type) //update type transactions
+    {
+        $transaksi = Transaction::find($id_transaksi);
+        if($type == 'pelajar'){
+            $type_name = 1;
+            $transaksi->type_id = $type_name;
+            $transaksi->save();
+        }elseif($type == 'umum'){
+            $type_name = 2;
+            $transaksi->type_id = $type_name;
+            $transaksi->save();
+        }else{
+            return view('customer.transaksiDashboard');
+        }
+    }
     /**
      * Remove the specified resource from storage.
      *
@@ -106,6 +122,5 @@ class TransactionController extends Controller
     public function destroy($id)
     {
         $data = Transaction::find($id)->delete();
-        return $data;
     }
 }

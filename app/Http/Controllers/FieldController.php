@@ -103,9 +103,8 @@ class FieldController extends Controller
         $fileName = time().'.'.$picture->extension();
         $request->picture->move(public_path('/images'), $fileName);
         $field->picture = $fileName;
-        $field->customer_id = '1';
         $field->save();
-        return redirect('/dashboardAdmin');
+        return redirect('/customer/field');
     }
 
     /**

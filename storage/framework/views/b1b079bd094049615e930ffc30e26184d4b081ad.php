@@ -2,10 +2,7 @@
 ##parent-placeholder-2f84417a9e73cead4d5c99e05daff2a534b30132##
 <?php $__env->stopSection(); ?>
 <?php $__env->startSection('content'); ?>
-<div class="container-fluid">
-    <div class="block-header">
-        <h2>DASHBOARD</h2>
-    </div>
+<div class="container">
     <!-- Widgets -->
     <div class="row clearfix">
         <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
@@ -20,20 +17,9 @@
             </div>
         </div>
         <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-            <div class="info-box bg-cyan hover-expand-effect">
-                <div class="icon">
-                    <i class="material-icons">help</i>
-                </div>
-                <div class="content">
-                    <div class="text">PLAYING</div>
-                    <div class="number count-to" data-from="0" data-to="257" data-speed="1000" data-fresh-interval="20"></div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
             <div class="info-box bg-light-green hover-expand-effect">
                 <div class="icon">
-                    <i class="material-icons">forum</i>
+                    <i class="material-icons">person_add</i>
                 </div>
                 <div class="content">
                     <div class="text">BOOKING</div>
@@ -44,10 +30,10 @@
         <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
             <div class="info-box bg-orange hover-expand-effect">
                 <div class="icon">
-                    <i class="material-icons">person_add</i>
+                    <i class="material-icons">person</i>
                 </div>
                 <div class="content">
-                    <div class="text">NEW VISITORS</div>
+                    <div class="text">CANCEL BOOKING</div>
                     <div class="number count-to" data-from="0" data-to="1225" data-speed="1000" data-fresh-interval="20"></div>
                 </div>
             </div>
@@ -105,11 +91,11 @@
                                         <td><?php echo e($schedule->pelajar); ?></td>
                                         <td><?php echo e($schedule->umum); ?></td>
                                         <?php if(is_null($schedule->transaction)): ?>
-                                            <td>Kosong</td>
+                                            <td>Available</td>
                                         <?php elseif($schedule->transaction->status === "Pending"): ?>
                                             <td><a href="" class="pending-btn btn btn-primary" data-transaksi="<?php echo e($schedule->transaction->id); ?>" data-user="<?php echo e($schedule->transaction->user_id); ?>"><?php echo e($schedule->transaction->status); ?></span></a></td>
                                         <?php elseif($schedule->transaction->status === "Success"): ?>
-                                            <td><a href="" class="success-btn btn btn-primary" data-user="<?php echo e($schedule->transaction->user_id); ?>"><?php echo e($schedule->transaction->status); ?></span></a></td>
+                                            <td><a href="" class="success-btn btn btn-success" data-transaksi="<?php echo e($schedule->transaction->id); ?>" data-user="<?php echo e($schedule->transaction->user_id); ?>"><?php echo e($schedule->transaction->status); ?></span></a></td>
                                         <?php endif; ?>
                                     </tr>
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -148,7 +134,8 @@
 $(".success-btn").click(function(e){
             e.preventDefault();
             var id=$(this).attr('data-user');
-            var url= "<?php echo e(url('customer/booking/success')); ?>"+"/"+id;
+            var id_trans=$(this).attr('data-transaksi');
+            var url= "<?php echo e(url('customer/booking/success')); ?>"+"/"+id+"/"+id_trans;
             $("#myModal").modal('show');
             $.get(url,
                 function(html){

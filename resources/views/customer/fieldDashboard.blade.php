@@ -92,7 +92,7 @@
                                                 <tr>
                                                     <td>{{$no++}}</td>
                                                     <td>{{$value->name}}</td>
-                                                    <td><img src="{{asset('public/images/'.$value->picture)}}" style="width:300px" alt=""></td>
+                                                    <td><img src="{{asset('images/'.$value->picture)}}" style="width:200px" alt=""></td>
                                                     <td>{{$value->category->name}}</td>
                                                     <td>
                                                        <a href="{{url('lapangan/'.$value->id.'/edit')}}" class="btn btn-success">EDIT</a>

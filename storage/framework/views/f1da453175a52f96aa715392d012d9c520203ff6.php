@@ -16,7 +16,7 @@
                 <img  src="<?php echo e(asset('style/login/img/logo.png' )); ?>" alt="logoFutnet">
 			</div>
 			<div class="form">
-				<form method="POST" action="<?php echo e(route('customer.login')); ?>">
+				<form method="POST" action="<?php echo e(route('login.customer')); ?>">
                     <?php echo e(csrf_field()); ?>
 
                     <?php if($errors->has('email')): ?>

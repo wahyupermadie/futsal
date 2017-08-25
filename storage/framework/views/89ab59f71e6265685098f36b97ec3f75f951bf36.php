@@ -45,7 +45,6 @@
                                                 <td>Jam</td>
                                                 <td>Harga Pelajar</td>
                                                 <td>Harga Umum</td>
-                                                <td>Action</td>
                                             </tr>
                                         </thead>
                                         <tbody id="section">
@@ -72,9 +71,6 @@
                                                     <div class="form-line">
                                                         <input type="text" class="form-control" name="umum[]" required>
                                                     </div>
-                                                </td>
-                                                <td>
-                                                    <a href="" class="btn btn-success">Edit</a>
                                                 </td>
                                             </tr>
                                         </tbody>

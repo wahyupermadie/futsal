@@ -16,7 +16,7 @@
                 <img  src="{{ asset('style/login/img/logo.png' )}}" alt="logoFutnet">
 			</div>
 			<div class="form">
-				<form method="POST" action="{{ route('customer.login') }}">
+				<form method="POST" action="{{ route('login.customer') }}">
                     {{ csrf_field() }}
                     @if ($errors->has('email'))
                             <span style="color:red;">

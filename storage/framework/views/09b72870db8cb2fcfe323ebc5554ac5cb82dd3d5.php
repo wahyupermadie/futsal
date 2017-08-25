@@ -27,13 +27,6 @@
                         <div class="body">
                             <div class="row">
                                 <?php $__currentLoopData = $field; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                <!-- <div class="card" style="width: 20rem;">
-                                    <img class="card-img-top" style="width:318px;height:180px;" src='<?php echo e(asset("images/$value->picture")); ?>' alt="Card image cap">
-                                    <div class="card-block">
-                                        <h4 class="card-title"><?php echo e($value->name); ?></h4>
-                                        <p><a class="btn btn-primary" href='<?php echo e(url("/jadwal/$value->id/create")); ?>'>Edit Jadwal</a></p>
-                                    </div>
-                                </div> -->
                                 <div class="col-md-4 col-sm-6">
                                     <div class="panel panel-default text-center">
                                         <div class="panel-heading">

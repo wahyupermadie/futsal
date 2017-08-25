@@ -18,7 +18,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 //ADMIN AUTH
 Route::GET('customer/home','CustomerController@index');
-Route::POST('customer','Customer\LoginController@login')->name('customer.login');
+Route::POST('login/customer','Customer\LoginController@login')->name('login.customer');
 Route::GET('customer/form','Customer\LoginController@showLoginForm')->name('customer.loginForm');
 Route::POST('logout','Customer\LoginController@logout')->name('customer.logout');
 Route::POST('customer-password/email','Customer\ForgotPasswordController@sendResetLinkEmail')->name('customer.password.email');
@@ -46,10 +46,14 @@ Route::resource('customer','FieldController');
 
 
 //TRANSACTION DASHBOARD
+Route::PUT('customer/transaction/{id}/{type}','TransactionController@updateType');
 Route::GET('customer/transaction','TransactionController@index');
 Route::GET('customer/booking/pending/{id}/{transaksi}','TransactionController@viewPending');
-Route::GET('customer/booking/success/{id}','TransactionController@viewSuccess');
+Route::GET('customer/booking/success/{id}/{transaksi}','TransactionController@viewSuccess');
 Route::resource('booking/konfirmasi','TransactionController');
+
+//REPORT DASHBOARD
+route::GET('report/dashboard','ReportController@index');
 
 //API
 Route::get('/api','ApiController@index');

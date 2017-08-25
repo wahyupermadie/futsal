@@ -3,7 +3,7 @@
             <!-- User Info -->
             <div class="user-info">
                 <div class="image">
-                    <img src="images/user.png" width="48" height="48" alt="User" />
+                    <img src="<?php echo e(asset('images/users/user.png')); ?>" width="48" height="48" alt="User" />
                 </div>
                 <div class="info-container">
                     <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php echo e(Auth::user()->name); ?></div>
@@ -54,7 +54,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="<?php echo e(URL('/customer/report')); ?>">
+                        <a href="<?php echo e(URL('report/dashboard')); ?>">
                             <i class="material-icons">assignment</i>
                             <span>Lihat Report</span>
                         </a>

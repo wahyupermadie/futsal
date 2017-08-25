@@ -94,7 +94,7 @@
                                                 <tr>
                                                     <td><?php echo e($no++); ?></td>
                                                     <td><?php echo e($value->name); ?></td>
-                                                    <td><img src="<?php echo e(asset('public/images/'.$value->picture)); ?>" style="width:300px" alt=""></td>
+                                                    <td><img src="<?php echo e(asset('images/'.$value->picture)); ?>" style="width:200px" alt=""></td>
                                                     <td><?php echo e($value->category->name); ?></td>
                                                     <td>
                                                        <a href="<?php echo e(url('lapangan/'.$value->id.'/edit')); ?>" class="btn btn-success">EDIT</a>

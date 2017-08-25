@@ -24,7 +24,7 @@
          </ul>
 </div>
     <div class="body">
-        <form method="POST" enctype="multipart/form-data" action="{{url("lapangan/$field->id")}}">
+        <form method="POST" enctype="multipart/form-data" action='{{url("lapangan/$field->id")}}'>
             {{csrf_field()}}
             <div class="form-line">
                 <label>Nama Lapangan</label>
@@ -46,7 +46,7 @@
             </div>
             <div class="form-line">
                 <img src="{{asset('images/'.$field->picture)}}" alt="" style="width:200px; padding-top:20px; padding-bottom:5px;">
-                <input type="file" class="form-control" name="picture">
+                <input type="file" class="form-control" name="picture" value="{{$field->picture}}">
             </div>
             <div class="form-group">
                 <input type="hidden" name="_method" value="PUT">
