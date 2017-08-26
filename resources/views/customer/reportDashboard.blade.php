@@ -50,6 +50,24 @@
                             </ul>
                         </div>
                         <div class="body">
+                            <div class="dropdown" style="padding-bottom:5px;">
+                                <button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">Tutorials
+                                <span class="caret"></span></button>
+                                <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+                                <li role="presentation"><a role="menuitem" tabindex="-1" value="1" href="#">Januari</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" value="2" href="#">Februari</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" value="3" href="#">Maret</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" value="4" href="#">April</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" value="5" href="#">Mei</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" value="6" href="#">Juni</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" value="7" href="#">Juli</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" value="8" href="#">Agustus</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" value="9" href="#">September</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" value="10" href="#">Oktober</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" value="11" href="#">November</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" value="12" href="#">Desember</a></li>
+                                </ul>
+                            </div>
                             <div class="table-responsive">
                                 <table class="table table-bordered table-striped table-hover dataTable js-exportable">
                                     <thead>
@@ -62,10 +80,9 @@
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                            <th>No</th>
-                                            <th>Tanggal</th>
-                                            <th>Pelajar</th>
-                                            <th>Umum</th>
+                                            <th align="center" colspan="2">Total Pendapatan</th>
+                                            <th></th>
+                                            <th></th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
