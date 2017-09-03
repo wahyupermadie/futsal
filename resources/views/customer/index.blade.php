@@ -49,7 +49,7 @@
                 <div class="header">
                     <div class="row clearfix">
                         <div class="col-xs-12 col-sm-6">
-                            <h2>FUTSAL DASHBOARD</h2>
+                            <h2>FUTSAL DASHBOARD {{$date}}</h2>
                         </div>
                     </div>
                     <ul class="header-dropdown m-r--5">
@@ -66,6 +66,54 @@
                     </ul>
                 </div>
                 <div class="body">
+                    <form action="#" method="GET">
+
+                        <?php
+                            $dateNow=date("Y-m-d");
+                            $startDate= new DateTime($dateNow);;
+                            $endDate=  new DateTime(date("Y-m-d",strtotime($dateNow." + 7 days")));
+                            $daterange= new DatePeriod($startDate,new DateInterval('P1D'),$endDate);
+
+                        ?>
+                        <select name="date" id="dateInput">
+                            @foreach($daterange as $dt)
+                                <?php
+                                    switch ($dt->format('N')) {
+                                        case '1':
+                                            $hari="Senin";
+                                            break;
+                                        
+                                        case '2':
+                                            $hari="Selasa";
+                                            break;
+                                        
+                                        case '3':
+                                            $hari="Rabu";
+                                            break;
+                                        
+                                        case '4':
+                                            $hari="Kamis";
+                                            break;
+                                        
+                                        case '5':
+                                            $hari="Jumat";
+                                            break;
+                                        
+                                        case '6':
+                                            $hari="Sabtu";
+                                            break;
+                                        
+                                        case '7':
+                                            $hari="Minggu";
+                                            break;
+                                    }
+                                ?>
+                                <option value="{{$dt->format('Y-m-d')}}" @if($date==$dt->format('Y-m-d')) selected="selected" @endif>
+                                    {{$hari}}, {{$dt->format('d M Y')}}
+                                </option>
+                            @endforeach
+                        </select>
+                    </form>
                     <ul class="nav nav-tabs tab-nav-right" role="tablist">
                         <?php $first=true; ?>
                         @foreach($field as $value)
@@ -91,11 +139,11 @@
                                         <td>{{$schedule->start_at}} - {{$schedule->finish_at}}</td>
                                         <td>{{$schedule->pelajar}}</td>
                                         <td>{{$schedule->umum}}</td>
-                                        @if(is_null($schedule->transaction))
+                                        @if(is_null($schedule->transaction)||$schedule->transaction->status === "cancel")
                                             <td>Available</td>
-                                        @elseif($schedule->transaction->status === "Pending")
+                                        @elseif($schedule->transaction->status === "pending")
                                             <td><a href="" class="pending-btn btn btn-primary" data-transaksi="{{$schedule->transaction->id}}" data-user="{{$schedule->transaction->user_id}}">{{$schedule->transaction->status}}</span></a></td>
-                                        @elseif($schedule->transaction->status === "Success")
+                                        @elseif($schedule->transaction->status === "success")
                                             <td><a href="" class="success-btn btn btn-success" data-transaksi="{{$schedule->transaction->id}}" data-user="{{$schedule->transaction->user_id}}">{{$schedule->transaction->status}}</span></a></td>
                                         @endif
                                     </tr>
@@ -151,22 +199,32 @@ $(".success-btn").click(function(e){
 </script>
 <!-- BOOKING PENDING -->
 <script type="text/javascript">
-$(".pending-btn").click(function(e){
-            e.preventDefault();
-            var id=$(this).attr('data-user');
-            var id_trans=$(this).attr('data-transaksi');
-            var url= "{{url('customer/booking/pending')}}"+"/"+id+"/"+id_trans;
-            $("#myModal").modal('show');
-            $.get(url,
-                function(html){
-                    $("#myModal .modal-body").html(html);
-                    $("#myModal .modal-header").attr('style','background-color: #337ab7');
-                    $("#myModal .modal-header .modal-title").html('Konfirmasi Booking');
-                    $('#myModalLabel').attr('style','color:white;')
-                }   
-            );
-                
-        });
+    $(".pending-btn").click(function(e){
+        e.preventDefault();
+        var id=$(this).attr('data-user');
+        var id_trans=$(this).attr('data-transaksi');
+        var url= "{{url('customer/booking/pending')}}"+"/"+id+"/"+id_trans;
+        $("#myModal").modal('show');
+        $.get(url,
+            function(html){
+                $("#myModal .modal-body").html(html);
+                $("#myModal .modal-header").attr('style','background-color: #337ab7');
+                $("#myModal .modal-header .modal-title").html('Konfirmasi Booking');
+                $('#myModalLabel').attr('style','color:white;')
+            }   
+        );
+            
+    });
+
+    $('#dateInput').change(function(e){
+        var date=$("#dateInput option:selected").val();
+        var URL="{{url('/')}}";
+        if($("#dateInput option:selected").index()==0){
+            window.location.replace(URL);
+        }else{
+            window.location.replace(URL+"?date="+date);
+        }
+    });
 </script>
 <script src="{{asset('style/plugins/morrisjs/morris.js')}}"></script>
 <!-- Jquery CountTo Plugin Js -->

@@ -26,8 +26,30 @@ class CustomerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(){
-        $date=date("Y-m-d");
+    public function index(Request $request){
+        $date=$request->date;
+        if (is_null($date)||empty($date)) {
+            $date=date("Y-m-d");
+        }
+        $day= date_format(date_create($date),'N');
+        
+        $transaksi = Transaction::all();
+
+        $field= Field::with(['schedule'=>function($query) use($day){
+            $query->where('day_id',$day);
+        },
+        'schedule.transaction'=>function($query) use($date){
+            $query->select('transactions.*','users.name')
+            ->join('users','users.id','=','transactions.user_id')
+            ->where('played_at',$date);
+        }
+        ])->where('customer_id',Auth::user()->id)->get();
+        return view('customer.index')
+        ->with(['field'=>$field,'date'=>$date]);
+    }
+
+    public function showSchedule(Request $request){
+        $date=$request->date;
         $day= date_format(date_create($date),'N');
         
         $transaksi = Transaction::all();
@@ -41,10 +63,8 @@ class CustomerController extends Controller
             ->where('played_at',$date);
         }
         ])->where('customer_id',Auth::user()->id)->get();
-// echo "<pre>";
-// return $field;
         return view('customer.index')
-        ->with(['field'=>$field]);
+        ->with(['field'=>$field]);   
     }
     
 }

@@ -56,36 +56,17 @@ Route::resource('booking/konfirmasi','TransactionController');
 route::GET('report/dashboard','ReportController@index');
 
 //API
-Route::get('/api','ApiController@index');
-Route::get('/api/{customer}/field','ApiController@field');
-Route::get('/api/form',function(){
-	return view('form_api');
-});
-Route::get('/api/schedule/{id}',function($id){
-  echo "<form form action='".url('api/schedule/'.$id)."' method='post'>";
-  echo "<input type='date' name='date' require/>";
-  echo "<button type='submit'>Lihat Jadwal</button>";
-  echo "</form>";
-});
-Route::get('/api/schedule/{id}/{date}','ApiController@viewSchedule');
-
-Route::post('/api/insert','ApiController@insert');
-Route::post('/api/booking','ApiController@booking');
-Route::get('/api/booking',function(){
-  echo "<form form action='".url('api/booking/')."' method='post'>";
-  echo "<input type='text' name='user_id' value='1'/>";
-  echo "<input type='text' name='played_at' value='2017-07-25'/>";
-  echo "<input type='text' name='schedule_id' value='252'/>";
-  echo "<button type='submit'>Lihat Jadwal</button>";
-  echo "</form>";
-});
-Route::post('api/login/','ApiController@login');
-Route::post('api/register/','ApiController@register');
-Route::get('api/register/',function(){
-  echo "<form form action='".url('api/register/')."' method='post'>";
-  echo "<input type='text' name='name' placeholder='Nama'/>";
-  echo "<input type='text' name='email' placeholder='email'/>";
-  echo "<input type='text' name='password' placeholder='password'/>";
-  echo "<button type='submit'>Lihat Jadwal</button>";
-  echo "</form>";
+Route::prefix('/api')->group(function(){
+  Route::get('/customer','ApiController@index');
+  Route::get('/{customer}/field','ApiController@field');
+  Route::get('/schedule/{id}/{date}','ApiController@viewSchedule');
+  Route::post('/insert','ApiController@insert');
+  Route::post('/booking','ApiController@booking');
+  Route::post('login/','ApiController@login');
+  Route::post('register/','ApiController@register');
+  Route::get('user/','ApiController@user');
+  Route::get('progressTransaction/','ApiController@progressTransaction');
+  Route::get('historyTransaction/','ApiController@historyTransaction');
+  Route::post('edituser/','ApiController@edituser');
+  Route::post('cancelingbook/','ApiController@cancelingbook');
 });

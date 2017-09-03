@@ -48,7 +48,7 @@
                 <div class="header">
                     <div class="row clearfix">
                         <div class="col-xs-12 col-sm-6">
-                            <h2>FUTSAL DASHBOARD</h2>
+                            <h2>FUTSAL DASHBOARD <?php echo e($date); ?></h2>
                         </div>
                     </div>
                     <ul class="header-dropdown m-r--5">
@@ -65,6 +65,55 @@
                     </ul>
                 </div>
                 <div class="body">
+                    <form action="#" method="GET">
+
+                        <?php
+                            $dateNow=date("Y-m-d");
+                            $startDate= new DateTime($dateNow);;
+                            $endDate=  new DateTime(date("Y-m-d",strtotime($dateNow." + 7 days")));
+                            $daterange= new DatePeriod($startDate,new DateInterval('P1D'),$endDate);
+
+                        ?>
+                        <select name="date" id="dateInput">
+                            <?php $__currentLoopData = $daterange; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $dt): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <?php
+                                    switch ($dt->format('N')) {
+                                        case '1':
+                                            $hari="Senin";
+                                            break;
+                                        
+                                        case '2':
+                                            $hari="Selasa";
+                                            break;
+                                        
+                                        case '3':
+                                            $hari="Rabu";
+                                            break;
+                                        
+                                        case '4':
+                                            $hari="Kamis";
+                                            break;
+                                        
+                                        case '5':
+                                            $hari="Jumat";
+                                            break;
+                                        
+                                        case '6':
+                                            $hari="Sabtu";
+                                            break;
+                                        
+                                        case '7':
+                                            $hari="Minggu";
+                                            break;
+                                    }
+                                ?>
+                                <option value="<?php echo e($dt->format('Y-m-d')); ?>" <?php if($date==$dt->format('Y-m-d')): ?> selected="selected" <?php endif; ?>>
+                                    <?php echo e($hari); ?>, <?php echo e($dt->format('d M Y')); ?>
+
+                                </option>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        </select>
+                    </form>
                     <ul class="nav nav-tabs tab-nav-right" role="tablist">
                         <?php $first=true; ?>
                         <?php $__currentLoopData = $field; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -90,11 +139,11 @@
                                         <td><?php echo e($schedule->start_at); ?> - <?php echo e($schedule->finish_at); ?></td>
                                         <td><?php echo e($schedule->pelajar); ?></td>
                                         <td><?php echo e($schedule->umum); ?></td>
-                                        <?php if(is_null($schedule->transaction)): ?>
+                                        <?php if(is_null($schedule->transaction)||$schedule->transaction->status === "cancel"): ?>
                                             <td>Available</td>
-                                        <?php elseif($schedule->transaction->status === "Pending"): ?>
+                                        <?php elseif($schedule->transaction->status === "pending"): ?>
                                             <td><a href="" class="pending-btn btn btn-primary" data-transaksi="<?php echo e($schedule->transaction->id); ?>" data-user="<?php echo e($schedule->transaction->user_id); ?>"><?php echo e($schedule->transaction->status); ?></span></a></td>
-                                        <?php elseif($schedule->transaction->status === "Success"): ?>
+                                        <?php elseif($schedule->transaction->status === "success"): ?>
                                             <td><a href="" class="success-btn btn btn-success" data-transaksi="<?php echo e($schedule->transaction->id); ?>" data-user="<?php echo e($schedule->transaction->user_id); ?>"><?php echo e($schedule->transaction->status); ?></span></a></td>
                                         <?php endif; ?>
                                     </tr>
@@ -150,22 +199,32 @@ $(".success-btn").click(function(e){
 </script>
 <!-- BOOKING PENDING -->
 <script type="text/javascript">
-$(".pending-btn").click(function(e){
-            e.preventDefault();
-            var id=$(this).attr('data-user');
-            var id_trans=$(this).attr('data-transaksi');
-            var url= "<?php echo e(url('customer/booking/pending')); ?>"+"/"+id+"/"+id_trans;
-            $("#myModal").modal('show');
-            $.get(url,
-                function(html){
-                    $("#myModal .modal-body").html(html);
-                    $("#myModal .modal-header").attr('style','background-color: #337ab7');
-                    $("#myModal .modal-header .modal-title").html('Konfirmasi Booking');
-                    $('#myModalLabel').attr('style','color:white;')
-                }   
-            );
-                
-        });
+    $(".pending-btn").click(function(e){
+        e.preventDefault();
+        var id=$(this).attr('data-user');
+        var id_trans=$(this).attr('data-transaksi');
+        var url= "<?php echo e(url('customer/booking/pending')); ?>"+"/"+id+"/"+id_trans;
+        $("#myModal").modal('show');
+        $.get(url,
+            function(html){
+                $("#myModal .modal-body").html(html);
+                $("#myModal .modal-header").attr('style','background-color: #337ab7');
+                $("#myModal .modal-header .modal-title").html('Konfirmasi Booking');
+                $('#myModalLabel').attr('style','color:white;')
+            }   
+        );
+            
+    });
+
+    $('#dateInput').change(function(e){
+        var date=$("#dateInput option:selected").val();
+        var URL="<?php echo e(url('/')); ?>";
+        if($("#dateInput option:selected").index()==0){
+            window.location.replace(URL);
+        }else{
+            window.location.replace(URL+"?date="+date);
+        }
+    });
 </script>
 <script src="<?php echo e(asset('style/plugins/morrisjs/morris.js')); ?>"></script>
 <!-- Jquery CountTo Plugin Js -->
