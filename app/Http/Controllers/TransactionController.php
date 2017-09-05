@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Transaction;
+use App\Schedule;
 use App\Offline;
 
 class TransactionController extends Controller
@@ -116,15 +117,18 @@ class TransactionController extends Controller
     public function updateType(Request $request, $id_transaksi, $type) //update type transactions
     {
         $transaksi = Transaction::find($id_transaksi);
+        $schedule = Schedule::find($transaksi->schedule_id);
         if($type == 'pelajar'){
             $type_name = 1;
             $transaksi->type_id = $type_name;
             $transaksi->status='success';
+            $transaksi->price=$schedule->pelajar;
             $transaksi->save();
         }elseif($type == 'umum'){
             $type_name = 2;
             $transaksi->type_id = $type_name;
             $transaksi->status='success';
+            $transaksi->price=$schedule->umum;
             $transaksi->save();
         }else{
             return view('customer.transaksiDashboard');

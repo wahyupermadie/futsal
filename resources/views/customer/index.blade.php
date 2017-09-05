@@ -171,7 +171,7 @@
                         </div>
                         <?php $first=false; ?>
                     @endforeach
-                    </div>
+                    </div><!-- tab-content -->
                 </div>
             </div>
         </div>

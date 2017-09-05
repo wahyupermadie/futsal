@@ -171,7 +171,7 @@
                         </div>
                         <?php $first=false; ?>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                    </div>
+                    </div><!-- tab-content -->
                 </div>
             </div>
         </div>
