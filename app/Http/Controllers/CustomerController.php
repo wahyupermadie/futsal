@@ -33,15 +33,15 @@ class CustomerController extends Controller
         }
         $day= date_format(date_create($date),'N');
         
-        $transaksi = Transaction::all();
+        // $transaksi = Transaction::all();
 
         $field= Field::with(['schedule'=>function($query) use($day){
             $query->where('day_id',$day);
         },
         'schedule.transaction'=>function($query) use($date){
-            $query->select('transactions.*','users.name')
-            ->join('users','users.id','=','transactions.user_id')
-            ->where('played_at',$date);
+            $query->select('transactions.*')
+            ->where('played_at',$date)
+            ->where('status','!=','cancel');
         }
         ])->where('customer_id',Auth::user()->id)->get();
         return view('customer.index')

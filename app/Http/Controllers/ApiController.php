@@ -49,7 +49,7 @@ class ApiController extends Controller{
     public function viewSchedule($field_id,$date){
         $day= date_format(date_create($date),'N');
         $schedule=Schedule::with(['transaction'=>function($query) use($date){
-            $query->where('played_at','=',$date);
+            $query->where('played_at','=',$date)->where('status','!=','cancel');;
         }])->where([['field_id',$field_id],['day_id',$day]])->get();
         return response()->json($schedule);
     }

@@ -133,6 +133,7 @@
                                     <td>Harga Pelajar</td>
                                     <td>Harga Umum</td>
                                     <td>Status</td>
+                                    <td>Action</td>
                                 </tr>
                                 @foreach($value->schedule as $schedule)
                                     <tr>
@@ -140,12 +141,30 @@
                                         <td>{{$schedule->pelajar}}</td>
                                         <td>{{$schedule->umum}}</td>
                                         @if(is_null($schedule->transaction)||$schedule->transaction->status === "cancel")
-                                            <td>Available</td>
+                                            <td>Kosong</td>
                                         @elseif($schedule->transaction->status === "pending")
-                                            <td><a href="" class="pending-btn btn btn-primary" data-transaksi="{{$schedule->transaction->id}}" data-user="{{$schedule->transaction->user_id}}">{{$schedule->transaction->status}}</span></a></td>
-                                        @elseif($schedule->transaction->status === "success")
-                                            <td><a href="" class="success-btn btn btn-success" data-transaksi="{{$schedule->transaction->id}}" data-user="{{$schedule->transaction->user_id}}">{{$schedule->transaction->status}}</span></a></td>
+                                            <td>Menunggu Konfirmasi</td>
+                                        @elseif($schedule->transaction->status === "accepted")
+                                            <td>Menunggu Pembayaran</td>
+                                        @else
+                                            <td>Sukses</td>
                                         @endif
+
+                                        <td> 
+                                        @if(is_null($schedule->transaction)||$schedule->transaction->status === "cancel")
+                                            <a href="#" class="book-btn btn btn-primary" data-schedule="{{$schedule->id}}"><span>Booking</span></a>
+                                        @elseif($schedule->transaction->status === "pending")
+                                            <a href="" class="pending-btn btn btn-warning" data-transaksi="{{$schedule->transaction->id}}" data-user="{{$schedule->transaction->user_id}}">Konfirmasi</span></a>
+                                        @elseif($schedule->transaction->status === "accepted")
+                                            @if(is_null($schedule->transaction->user_id))
+                                                <a href="" class="success-btn btn btn-success" data-transaksi="{{$schedule->transaction->id}}" data-user="{{$schedule->transaction->user_id}}">Offline</span></a>
+                                            @else                 
+                                                <a href="" class="success-btn btn btn-success" data-transaksi="{{$schedule->transaction->id}}" data-user="{{$schedule->transaction->user_id}}">Online</span></a>
+                                            @endif
+                                        @else
+                                            <a href="#" class="btn btn-success"><span>Sukses</span></a>
+                                        @endif
+                                        </td>
                                     </tr>
                                 @endforeach
                             </table>
@@ -178,32 +197,52 @@
 @endsection
 @section('js')
 @parent
+
+<!-- NEW BOOKING -->
+<script type="text/javascript">
+$(".book-btn").click(function(e){
+    $("#myModal .modal-body").html("loading...");
+    e.preventDefault();
+    var played_at="{{$date}}";
+    var schedule_id=$(this).attr('data-schedule');
+    var url= "{{url('transaction/create')}}?played_at="+played_at+"&schedule_id="+schedule_id;
+    $("#myModal").modal('show');
+    $.get(url,function(html){
+        $("#myModal .modal-body").html(html);
+        $("#myModal .modal-header").attr('style','background-color: #337ab7');
+        $("#myModal .modal-header .modal-title").html('Data Pemesan');
+        $('#myModalLabel').attr('style','color:white;')
+    });
+                
+});
+</script>
+
 <!-- BOOKING SUCCESS-->
 <script type="text/javascript">
 $(".success-btn").click(function(e){
-            e.preventDefault();
-            var id=$(this).attr('data-user');
-            var id_trans=$(this).attr('data-transaksi');
-            var url= "{{url('customer/booking/success')}}"+"/"+id+"/"+id_trans;
-            $("#myModal").modal('show');
-            $.get(url,
-                function(html){
-                    $("#myModal .modal-body").html(html);
-                    $("#myModal .modal-header").attr('style','background-color: #337ab7');
-                    $("#myModal .modal-header .modal-title").html('Data Pemesan');
-                    $('#myModalLabel').attr('style','color:white;')
-                }   
-            );
-                
-        });
+    $("#myModal .modal-body").html("loading...");
+    e.preventDefault();
+    var id_trans=$(this).attr('data-transaksi');
+    var url= "{{url('transaction/success')}}"+"/"+id_trans;
+    $("#myModal").modal('show');
+    $.get(url,
+        function(html){
+            $("#myModal .modal-body").html(html);
+            $("#myModal .modal-header").attr('style','background-color: #337ab7');
+            $("#myModal .modal-header .modal-title").html('Data Pemesan');
+            $('#myModalLabel').attr('style','color:white;')
+        }   
+    );
+        
+});
 </script>
 <!-- BOOKING PENDING -->
 <script type="text/javascript">
     $(".pending-btn").click(function(e){
+        $("#myModal .modal-body").html("loading...");
         e.preventDefault();
-        var id=$(this).attr('data-user');
         var id_trans=$(this).attr('data-transaksi');
-        var url= "{{url('customer/booking/pending')}}"+"/"+id+"/"+id_trans;
+        var url= "{{url('transaction/pending')}}"+"/"+id_trans;
         $("#myModal").modal('show');
         $.get(url,
             function(html){
