@@ -5,11 +5,14 @@ namespace App\Http\Controllers;
 use App\User;
 use App\Transaction;
 use App\Customer;
+use App\Schedule;
+use App\Field;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Validator;
 use Session;
 use Auth;
+use DB;
 
 class ReportController extends Controller
 {
@@ -24,7 +27,20 @@ class ReportController extends Controller
 
     public function index()
     {
-        return view('customer.reportDashboard');
+        $month = date('m');
+        $report = DB::table('transactions')
+        ->join('schedules', 'transactions.schedule_id', '=', 'schedules.id')
+        ->join('fields', 'schedules.field_id', '=', 'fields.id')
+        ->join('customers','fields.customer_id','=','customers.id')
+        ->select(DB::raw('date(played_at) as tanggal'), DB::raw('sum(price) as total_income') )
+        ->whereMonth('transactions.played_at',$month)
+        ->where('fields.customer_id',Auth::user()->id)
+        ->groupBy(DB::raw('date(played_at)'))
+        ->get();
+
+        // $report = Transaction::with('customer.field.shedule')->where('played_at',$month)->get();
+        // return $report;
+        return view('customer.reportDashboard',['report' => $report]);
     }
 
     /**

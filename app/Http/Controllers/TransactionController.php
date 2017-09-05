@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Transaction;
+use App\Offline;
 
 class TransactionController extends Controller
 {
@@ -17,9 +18,7 @@ class TransactionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        return view('customer.transaksiDashboard');
+    public function index(){
     }
 
     /**
@@ -28,27 +27,12 @@ class TransactionController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function viewPending($id, $id_transaksi)
-    {
-
-        $user = User::with(['transaction'=>function($query) use($id,$id_transaksi){
-                $query->where(['user_id'=>$id,'id'=>$id_transaksi]);
-        }])->first();
-        return view('customer.schedulePending')
-        ->with(['user'=>$user,'transaksi'=>$id_transaksi]);
-    }
-
-    public function viewSuccess($id, $id_transaksi)
-    {
-        $user = User::with(['transaction'=>function($query) use($id,$id_transaksi){
-            $query->where(['user_id'=>$id,'id'=>$id_transaksi]);
-        }])->first();
-        return view('customer.scheduleSuccess')
-        ->with(['user'=>$user,'transaksi'=>$id_transaksi]);   
-    }
-    public function create()
-    {
-        //
+    public function create(Request $request){
+        $played_at=$request->played_at;
+        $schedule_id=$request->schedule_id;
+        return view('customer.transactionNew')
+        ->with('played_at',$played_at)
+        ->with('schedule_id',$schedule_id);        
     }
 
     /**
@@ -59,7 +43,17 @@ class TransactionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $transaction = new Transaction;
+        $transaction->schedule_id=$request->schedule_id;
+        $transaction->status="accepted";
+        $transaction->played_at=$request->played_at;
+        $transaction->save();
+
+        $Offline= new Offline;
+        $Offline->name=$request->name;
+        $Offline->phone=$request->phone;
+        $Offline->transaction_id=$transaction->id;
+        $Offline->save();
     }
 
     /**
@@ -79,9 +73,8 @@ class TransactionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        //
+    public function edit($id){
+        
     }
 
     /**
@@ -91,11 +84,33 @@ class TransactionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
+    public function update(Request $request, $id){
         $transaksi = Transaction::find($id);
-        $transaksi->status = "Success";
+        $transaksi->status = "accepted";
         $transaksi->save();
+    }
+
+
+    public function viewPending($id_transaksi)
+    {
+
+        $transaction= Transaction::find($id_transaksi);
+        $user = User::where('id',$transaction->user_id)->first();
+        return view('customer.schedulePending')
+        ->with(['user'=>$user,'transaksi'=>$id_transaksi]);
+    }
+
+    public function viewSuccess($id_transaksi)
+    {
+        $transaction= Transaction::find($id_transaksi);
+        if (is_null($transaction->user_id)) {
+            $user= Offline::where('transaction_id',$id_transaksi)->first();
+            return view('customer.scheduleOffline')->with(['user'=>$user,'transaksi'=>$id_transaksi]);
+        }else{
+            $user = User::where('id',$transaction->user_id)->first();
+            return view('customer.scheduleSuccess')
+            ->with(['user'=>$user,'transaksi'=>$id_transaksi]);
+        }
     }
 
     public function updateType(Request $request, $id_transaksi, $type) //update type transactions
@@ -104,10 +119,12 @@ class TransactionController extends Controller
         if($type == 'pelajar'){
             $type_name = 1;
             $transaksi->type_id = $type_name;
+            $transaksi->status='success';
             $transaksi->save();
         }elseif($type == 'umum'){
             $type_name = 2;
             $transaksi->type_id = $type_name;
+            $transaksi->status='success';
             $transaksi->save();
         }else{
             return view('customer.transaksiDashboard');
@@ -119,8 +136,7 @@ class TransactionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
+    public function destroy($id){
         $data = Transaction::find($id)->delete();
     }
 }

@@ -46,11 +46,11 @@ Route::resource('customer','FieldController');
 
 
 //TRANSACTION DASHBOARD
-Route::PUT('customer/transaction/{id}/{type}','TransactionController@updateType');
-Route::GET('customer/transaction','TransactionController@index');
-Route::GET('customer/booking/pending/{id}/{transaksi}','TransactionController@viewPending');
-Route::GET('customer/booking/success/{id}/{transaksi}','TransactionController@viewSuccess');
-Route::resource('booking/konfirmasi','TransactionController');
+Route::PUT('transaction/{id}/{type}','TransactionController@updateType');
+Route::GET('transaction','TransactionController@index');
+Route::GET('transaction/pending/{transaksi}','TransactionController@viewPending');
+Route::GET('transaction/success/{transaksi}','TransactionController@viewSuccess');
+Route::resource('transaction','TransactionController');
 
 //REPORT DASHBOARD
 route::GET('report/dashboard','ReportController@index');

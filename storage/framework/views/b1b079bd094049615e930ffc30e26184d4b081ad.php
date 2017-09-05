@@ -133,6 +133,7 @@
                                     <td>Harga Pelajar</td>
                                     <td>Harga Umum</td>
                                     <td>Status</td>
+                                    <td>Action</td>
                                 </tr>
                                 <?php $__currentLoopData = $value->schedule; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $schedule): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                     <tr>
@@ -140,12 +141,30 @@
                                         <td><?php echo e($schedule->pelajar); ?></td>
                                         <td><?php echo e($schedule->umum); ?></td>
                                         <?php if(is_null($schedule->transaction)||$schedule->transaction->status === "cancel"): ?>
-                                            <td>Available</td>
+                                            <td>Kosong</td>
                                         <?php elseif($schedule->transaction->status === "pending"): ?>
-                                            <td><a href="" class="pending-btn btn btn-primary" data-transaksi="<?php echo e($schedule->transaction->id); ?>" data-user="<?php echo e($schedule->transaction->user_id); ?>"><?php echo e($schedule->transaction->status); ?></span></a></td>
-                                        <?php elseif($schedule->transaction->status === "success"): ?>
-                                            <td><a href="" class="success-btn btn btn-success" data-transaksi="<?php echo e($schedule->transaction->id); ?>" data-user="<?php echo e($schedule->transaction->user_id); ?>"><?php echo e($schedule->transaction->status); ?></span></a></td>
+                                            <td>Menunggu Konfirmasi</td>
+                                        <?php elseif($schedule->transaction->status === "accepted"): ?>
+                                            <td>Menunggu Pembayaran</td>
+                                        <?php else: ?>
+                                            <td>Sukses</td>
                                         <?php endif; ?>
+
+                                        <td> 
+                                        <?php if(is_null($schedule->transaction)||$schedule->transaction->status === "cancel"): ?>
+                                            <a href="#" class="book-btn btn btn-primary" data-schedule="<?php echo e($schedule->id); ?>"><span>Booking</span></a>
+                                        <?php elseif($schedule->transaction->status === "pending"): ?>
+                                            <a href="" class="pending-btn btn btn-warning" data-transaksi="<?php echo e($schedule->transaction->id); ?>" data-user="<?php echo e($schedule->transaction->user_id); ?>">Konfirmasi</span></a>
+                                        <?php elseif($schedule->transaction->status === "accepted"): ?>
+                                            <?php if(is_null($schedule->transaction->user_id)): ?>
+                                                <a href="" class="success-btn btn btn-success" data-transaksi="<?php echo e($schedule->transaction->id); ?>" data-user="<?php echo e($schedule->transaction->user_id); ?>">Offline</span></a>
+                                            <?php else: ?>                 
+                                                <a href="" class="success-btn btn btn-success" data-transaksi="<?php echo e($schedule->transaction->id); ?>" data-user="<?php echo e($schedule->transaction->user_id); ?>">Online</span></a>
+                                            <?php endif; ?>
+                                        <?php else: ?>
+                                            <a href="#" class="btn btn-success"><span>Sukses</span></a>
+                                        <?php endif; ?>
+                                        </td>
                                     </tr>
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </table>
@@ -178,32 +197,52 @@
 <?php $__env->stopSection(); ?>
 <?php $__env->startSection('js'); ?>
 ##parent-placeholder-93f8bb0eb2c659b85694486c41717eaf0fe23cd4##
+
+<!-- NEW BOOKING -->
+<script type="text/javascript">
+$(".book-btn").click(function(e){
+    $("#myModal .modal-body").html("loading...");
+    e.preventDefault();
+    var played_at="<?php echo e($date); ?>";
+    var schedule_id=$(this).attr('data-schedule');
+    var url= "<?php echo e(url('transaction/create')); ?>?played_at="+played_at+"&schedule_id="+schedule_id;
+    $("#myModal").modal('show');
+    $.get(url,function(html){
+        $("#myModal .modal-body").html(html);
+        $("#myModal .modal-header").attr('style','background-color: #337ab7');
+        $("#myModal .modal-header .modal-title").html('Data Pemesan');
+        $('#myModalLabel').attr('style','color:white;')
+    });
+                
+});
+</script>
+
 <!-- BOOKING SUCCESS-->
 <script type="text/javascript">
 $(".success-btn").click(function(e){
-            e.preventDefault();
-            var id=$(this).attr('data-user');
-            var id_trans=$(this).attr('data-transaksi');
-            var url= "<?php echo e(url('customer/booking/success')); ?>"+"/"+id+"/"+id_trans;
-            $("#myModal").modal('show');
-            $.get(url,
-                function(html){
-                    $("#myModal .modal-body").html(html);
-                    $("#myModal .modal-header").attr('style','background-color: #337ab7');
-                    $("#myModal .modal-header .modal-title").html('Data Pemesan');
-                    $('#myModalLabel').attr('style','color:white;')
-                }   
-            );
-                
-        });
+    $("#myModal .modal-body").html("loading...");
+    e.preventDefault();
+    var id_trans=$(this).attr('data-transaksi');
+    var url= "<?php echo e(url('transaction/success')); ?>"+"/"+id_trans;
+    $("#myModal").modal('show');
+    $.get(url,
+        function(html){
+            $("#myModal .modal-body").html(html);
+            $("#myModal .modal-header").attr('style','background-color: #337ab7');
+            $("#myModal .modal-header .modal-title").html('Data Pemesan');
+            $('#myModalLabel').attr('style','color:white;')
+        }   
+    );
+        
+});
 </script>
 <!-- BOOKING PENDING -->
 <script type="text/javascript">
     $(".pending-btn").click(function(e){
+        $("#myModal .modal-body").html("loading...");
         e.preventDefault();
-        var id=$(this).attr('data-user');
         var id_trans=$(this).attr('data-transaksi');
-        var url= "<?php echo e(url('customer/booking/pending')); ?>"+"/"+id+"/"+id_trans;
+        var url= "<?php echo e(url('transaction/pending')); ?>"+"/"+id_trans;
         $("#myModal").modal('show');
         $.get(url,
             function(html){
