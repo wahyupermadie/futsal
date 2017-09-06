@@ -50,6 +50,7 @@ Route::PUT('transaction/{id}/{type}','TransactionController@updateType');
 Route::GET('transaction','TransactionController@index');
 Route::GET('transaction/pending/{transaksi}','TransactionController@viewPending');
 Route::GET('transaction/success/{transaksi}','TransactionController@viewSuccess');
+Route::GET('transaction/user/{transaksi}','TransactionController@viewUser');
 Route::resource('transaction','TransactionController');
 
 //REPORT DASHBOARD

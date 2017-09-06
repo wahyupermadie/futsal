@@ -114,6 +114,19 @@ class TransactionController extends Controller
         }
     }
 
+    public function viewUser($id_transaksi)
+    {
+        $transaction= Transaction::find($id_transaksi);
+        if (is_null($transaction->user_id)) {
+            $user= Offline::where('transaction_id',$id_transaksi)->first();
+            return view('customer.userOffline')->with(['user'=>$user,'transaksi'=>$id_transaksi]);
+        }else{
+            $user = User::where('id',$transaction->user_id)->first();
+            return view('customer.userOnline')
+            ->with(['user'=>$user,'transaksi'=>$id_transaksi]);
+        }
+    }
+
     public function updateType(Request $request, $id_transaksi, $type) //update type transactions
     {
         $transaksi = Transaction::find($id_transaksi);
