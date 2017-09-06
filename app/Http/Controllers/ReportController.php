@@ -96,31 +96,13 @@ class ReportController extends Controller
         ->groupBy(DB::raw('date(played_at)'))
         ->get();
 
-        $totalincome = DB::table('transactions')
-        ->join('schedules', 'transactions.schedule_id', '=', 'schedules.id')
-        ->join('fields', 'schedules.field_id', '=', 'fields.id')
-        ->join('customers','fields.customer_id','=','customers.id')
-        ->whereBetween('transactions.played_at',[$firstdate, $seconddate])
-        ->where('fields.customer_id',Auth::user()->id)
-        ->sum('price');
-
         return view('customer.reportDashboard')
-        ->with(['totalincome'=>$totalincome,'report' => $report,'firstdate' => $request->firstDate,'seconddate' => $request->secondDate]);
+        ->with(['report' => $report,'firstdate' => $request->firstDate,'seconddate' => $request->secondDate]);
     }
     public function showDetail($date)
     {   
         $day= date_format(date_create($date),'N'); 
-        $totalincome = DB::table('transactions')
-        ->join('schedules', 'transactions.schedule_id', '=', 'schedules.id')
-        ->join('fields', 'schedules.field_id', '=', 'fields.id')
-        ->join('customers','fields.customer_id','=','customers.id')
-        ->where('transactions.played_at',$date)
-        ->where('schedules.day_id',$day)
-        ->where('fields.customer_id',Auth::user()->id)
-        ->groupBy('fields.id')
-        ->sum('price');
         
-
         $detail= Field::with(['schedule'=>function($query) use($day){
             $query->where('day_id',$day);
         },
@@ -132,7 +114,7 @@ class ReportController extends Controller
         ])->where('customer_id',Auth::user()->id)->get();
         // return $detail;
         return view('customer.reportDetail')
-        ->with(['totalincome'=>$totalincome,'detail' => $detail]);
+        ->with(['detail' => $detail]);
     }
     /**
      * Show the form for editing the specified resource.

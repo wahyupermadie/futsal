@@ -69,24 +69,25 @@
                                             <th>Action</th>
                                         </tr>
                                     </thead>
-                                    <tfoot>
-                                        <tr>
-                                            <th align="center" colspan="2">Total Pendapatan</th>
-                                            <th>Rp {{ number_format($totalincome, 2) }}</th>
-                                            <th></th>
-                                        </tr>
-                                    </tfoot>
                                     <tbody>
-                                    <?php $i = 0 ?>
+                                    <?php $i = 0; $total=0;?>
                                     @foreach($report as $value)
                                         <tr>
                                             <td>{{$i=$i+1}}</td>
                                             <td>{{date('d F Y', strtotime($value->tanggal))}}</td>
-                                            <td>Rp {{number_format($value->total_income)}}</td>
+                                            <td>Rp {{number_format($value->total_income)}}
+                                            <?php $total+=$value->total_income;?></td>
                                             <td><a href='{{url("report/detail/".$value->tanggal)}}' class="btn btn-primary"><span class="glyphicon glyphicon-eye-open"></span></a></td>
                                         </tr>
                                     @endforeach
                                     </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th align="center" colspan="2">Total Pendapatan</th>
+                                            <th>Rp {{ number_format($total, 2) }}</th>
+                                            <th></th>
+                                        </tr>
+                                    </tfoot>
                                 </table>
                             </div>
                         </div>

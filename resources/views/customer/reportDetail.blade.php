@@ -82,20 +82,9 @@
                                                 <th>Pendapatan</th>
                                             </tr>
                                         </thead>
-                                        <tfoot>
-                                            <tr>
-                                                <th align="center" colspan="4">Total Pendapatan</th>
-                                                <th>
-                                                    @if(is_null($value->schedule))
-                                                        -
-                                                    @else
-                                                       Rp {{ number_format($totalincome, 2) }}
-                                                    @endif
-                                                </th>
-                                            </tr>
-                                        </tfoot>
+                                       
                                         <tbody>
-                                            <?php $i = 1 ?>
+                                            <?php $i = 1; $total=0;?>
                                             @foreach($value->schedule as $schedule)
                                             <tr>
                                                 <td>{{$i++}}</td>
@@ -112,12 +101,21 @@
                                                     @if(is_null($schedule->transaction))
                                                         Rp. 0
                                                     @else
-                                                        {{$schedule->transaction->price}}
+                                                        Rp {{number_format($schedule->transaction->price)}}
+                                                        <?php $total+=$schedule->transaction->price;?>
                                                     @endif
                                                 </td>
                                             </tr>
                                             @endforeach
                                         </tbody>
+                                         <tfoot>
+                                            <tr>
+                                                <th align="center" colspan="4">Total Pendapatan</th>
+                                                <th>
+                                                    Rp {{number_format($total)}}
+                                                </th>
+                                            </tr>
+                                        </tfoot>
                                     </table>
                                 </div>
                             </div>
