@@ -154,15 +154,15 @@
                                         @if(is_null($schedule->transaction)||$schedule->transaction->status === "cancel")
                                             <a href="#" class="book-btn btn btn-primary" data-schedule="{{$schedule->id}}"><span>Booking</span></a>
                                         @elseif($schedule->transaction->status === "pending")
-                                            <a href="" class="pending-btn btn btn-warning" data-transaksi="{{$schedule->transaction->id}}" data-user="{{$schedule->transaction->user_id}}">Konfirmasi</span></a>
+                                            <a href="#" class="pending-trans btn btn-warning" data-transaksi="{{$schedule->transaction->id}}" data-user="{{$schedule->transaction->user_id}}">Konfirmasi</span></a>
                                         @elseif($schedule->transaction->status === "accepted")
                                             @if(is_null($schedule->transaction->user_id))
-                                                <a href="" class="success-btn btn btn-success" data-transaksi="{{$schedule->transaction->id}}" data-user="{{$schedule->transaction->user_id}}">Offline</span></a>
+                                                <a href="#" class="accepted-trans btn btn-success" data-transaksi="{{$schedule->transaction->id}}" data-user="{{$schedule->transaction->user_id}}">Offline</span></a>
                                             @else                 
-                                                <a href="" class="success-btn btn btn-success" data-transaksi="{{$schedule->transaction->id}}" data-user="{{$schedule->transaction->user_id}}">Online</span></a>
+                                                <a href="#" class="accepted-trans btn btn-success" data-transaksi="{{$schedule->transaction->id}}" data-user="{{$schedule->transaction->user_id}}">Online</span></a>
                                             @endif
                                         @else
-                                            <a href="#" class="btn btn-success"><span>Sukses</span></a>
+                                            <a href="#" data-transaksi="{{$schedule->transaction->id}}" class="success-trans btn btn-success"><span>Sukses</span></a>
                                         @endif
                                         </td>
                                     </tr>
@@ -171,7 +171,7 @@
                         </div>
                         <?php $first=false; ?>
                     @endforeach
-                    </div>
+                    </div><!-- tab-content -->
                 </div>
             </div>
         </div>
@@ -219,7 +219,7 @@ $(".book-btn").click(function(e){
 
 <!-- BOOKING SUCCESS-->
 <script type="text/javascript">
-$(".success-btn").click(function(e){
+$(".accepted-trans").click(function(e){
     $("#myModal .modal-body").html("loading...");
     e.preventDefault();
     var id_trans=$(this).attr('data-transaksi');
@@ -235,10 +235,27 @@ $(".success-btn").click(function(e){
     );
         
 });
+
+$(".success-trans").click(function(e){
+    $("#myModal .modal-body").html("loading...");
+    e.preventDefault();
+    var id_trans=$(this).attr('data-transaksi');
+    var url= "{{url('transaction/user')}}"+"/"+id_trans;
+    $("#myModal").modal('show');
+    $.get(url,
+        function(html){
+            $("#myModal .modal-body").html(html);
+            $("#myModal .modal-header").attr('style','background-color: #337ab7');
+            $("#myModal .modal-header .modal-title").html('Data Pemesan');
+            $('#myModalLabel').attr('style','color:white;')
+        }   
+    );
+        
+});
 </script>
 <!-- BOOKING PENDING -->
 <script type="text/javascript">
-    $(".pending-btn").click(function(e){
+    $(".pending-trans").click(function(e){
         $("#myModal .modal-body").html("loading...");
         e.preventDefault();
         var id_trans=$(this).attr('data-transaksi');
