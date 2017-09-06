@@ -36,20 +36,28 @@
                     <div class="card">
                         <div class="body">
                             <div class="row clearfix">
+                                <form action="{{url('report')}}" method="GET">
+                                {{--  {{csrf_field()}}  --}}
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <input type="text" class="datepicker form-control" placeholder="Please choose a date...">
+                                            <input  value="@if(isset($firstdate)){{$firstdate}}@endif" name="firstDate" id="firstDate" type="text" class="datepicker form-control" placeholder="Please choose a date...">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <input type="text" class="datepicker form-control" placeholder="Please choose a date...">
+                                            <input  value="@if(isset($seconddate)){{$seconddate}}@endif" name="secondDate" id="secondDate" type="text" class="datepicker form-control" placeholder="Please choose a date...">
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">                                        
+                                            <button type="submit" class="btn btn-primary">FIND</button>                                       
+                                    </div>
+                                </div>
+                                </form>
                             </div>
                             <div class="table-responsive">
                                 <table class="table table-bordered table-striped table-hover dataTable js-exportable">
@@ -64,7 +72,7 @@
                                     <tfoot>
                                         <tr>
                                             <th align="center" colspan="2">Total Pendapatan</th>
-                                            <th></th>
+                                            <th>Rp {{ number_format($totalincome, 2) }}</th>
                                             <th></th>
                                         </tr>
                                     </tfoot>
@@ -74,8 +82,8 @@
                                         <tr>
                                             <td>{{$i=$i+1}}</td>
                                             <td>{{date('d F Y', strtotime($value->tanggal))}}</td>
-                                            <td>{{$value->total_income}}</td>
-                                            <td><a href="" class="btn btn-primary"><span class="glyphicon glyphicon-eye-open"></span></a></td>
+                                            <td>Rp {{number_format($value->total_income)}}</td>
+                                            <td><a href='{{url("report/detail/".$value->tanggal)}}' class="btn btn-primary"><span class="glyphicon glyphicon-eye-open"></span></a></td>
                                         </tr>
                                     @endforeach
                                     </tbody>
@@ -94,6 +102,13 @@
 @endsection
 @section('js')
 @parent
+<script type="text/javascript">
+    $('#btn-find').click(function(e){
+        var firstdate=$("#firstDate").datepicker('getDate');
+        alert(firstdate);
+        var seconddate=$("#secondDate").val();
+    });
+</script>
 <!-- Jquery DataTable Plugin Js -->
 <script src="{{ asset('style/plugins/jquery-datatable/jquery.dataTables.js') }}"></script>
 <script src="{{ asset('style/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js') }}"></script>

@@ -54,6 +54,8 @@ Route::resource('transaction','TransactionController');
 
 //REPORT DASHBOARD
 route::GET('report/dashboard','ReportController@index');
+route::GET('report','ReportController@showReport');
+route::GET('report/detail/{date}','ReportController@showDetail');
 
 //API
 Route::prefix('/api')->group(function(){
