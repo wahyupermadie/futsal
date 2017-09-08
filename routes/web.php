@@ -55,6 +55,7 @@ Route::resource('transaction','TransactionController');
 
 //REPORT DASHBOARD
 route::GET('report/dashboard','ReportController@index');
+route::GET('report/dashboard/chart','ReportController@chart');
 route::GET('report','ReportController@showReport');
 route::GET('report/detail/{date}','ReportController@showDetail');
 

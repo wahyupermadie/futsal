@@ -59,6 +59,15 @@
                                 </div>
                                 </form>
                             </div>
+                            <div class="row clearfix">
+                                <!-- <div class="col-lg-6 "> -->
+                                    <div class="card">
+                                        <div class="body">
+                                                <canvas id="myChart"></canvas>
+                                        </div>
+                                    </div>    
+                                <!-- </div> -->
+                            </div>
                             <div class="table-responsive">
                                 <table class="table table-bordered table-striped table-hover dataTable js-exportable">
                                     <thead>
@@ -103,13 +112,7 @@
 @endsection
 @section('js')
 @parent
-<script type="text/javascript">
-    $('#btn-find').click(function(e){
-        var firstdate=$("#firstDate").datepicker('getDate');
-        alert(firstdate);
-        var seconddate=$("#secondDate").val();
-    });
-</script>
+
 <!-- Jquery DataTable Plugin Js -->
 <script src="{{ asset('style/plugins/jquery-datatable/jquery.dataTables.js') }}"></script>
 <script src="{{ asset('style/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js') }}"></script>
@@ -124,6 +127,16 @@
 <!-- Autosize Plugin Js -->
 <script src="{{ asset('style/plugins/autosize/autosize.js')}}"></script>
 
+<!-- Chart Plugins Js -->
+<script src="{{ asset('style/plugins/chartjs/Chart.bundle.js')}}"></script>
+
+<!-- Custom Js -->
+<!-- <script src="../../js/admin.js"></script> -->
+<script src="{{ asset('style/js/chartJs/Chart.bundle.js')}}"></script>
+<script src="{{ asset('style/js/chartJs/Chart.bundle.min.js')}}"></script>
+<script src="{{ asset('style/js/chartJs/Chart.js')}}"></script>
+<script src="{{ asset('style/js/chartJs/Chart.min.js')}}"></script>
+
 <!-- Moment Plugin Js -->
 <script src="{{ asset('style/plugins/momentjs/moment.js')}}"></script>
 
@@ -134,4 +147,65 @@
 <script src="{{ asset('style/js/pages/tables/jquery-datatable.js') }}"></script>
 <script src="{{ asset('style/js/pages/forms/basic-form-elements.js') }}"></script>
 <script src="{{ asset('style/js/demo.js')}}"></script>
+<script>
+// $(document).ready(function(){
+    $.ajax({
+        url: "http://127.0.0.1:8000/report/dashboard/chart",
+        method: "GET",
+        success: function(response) {
+            var data = $.parseJSON(response);
+            // console.log(data);
+            var tanggal = [];
+            var income = [];
+
+            for(var i in data) {
+                tanggal.push(data[i].tanggal);
+                income.push(data[i].total_income);
+            }
+            var ctx = document.getElementById("myChart");
+            var myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: tanggal,
+                    datasets: [{
+                        label: 'Income By Date',
+                        data: income,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255,99,132,1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero:true
+                            }
+                        }]
+                    }
+                }
+            });
+
+         },
+         error: function(){
+            alert("GAGAL");
+         }
+    });
+// });
+
+</script>
 @endsection

@@ -13,6 +13,7 @@ use Validator;
 use Session;
 use Auth;
 use DB;
+use Chart;
 
 class ReportController extends Controller
 {
@@ -23,6 +24,23 @@ class ReportController extends Controller
      */
     public function __construct(){
         $this->middleware('auth:customer');
+    }
+
+    public function chart()
+    {
+        $firstdate=date('l, d F Y');
+        $seconddate=date('l, d F Y',strtotime($firstdate." + 2 days"));
+        $month = date('m');
+        $report = DB::table('transactions')
+        ->join('schedules', 'transactions.schedule_id', '=', 'schedules.id')
+        ->join('fields', 'schedules.field_id', '=', 'fields.id')
+        ->join('customers','fields.customer_id','=','customers.id')
+        ->select(DB::raw('date(played_at) as tanggal'), DB::raw('sum(price) as total_income') )
+        ->whereBetween('transactions.played_at',[date("y-m-d",strtotime($firstdate)),date("y-m-d",strtotime($seconddate))])
+        ->where('fields.customer_id',Auth::user()->id)
+        ->groupBy(DB::raw('date(played_at)'))
+        ->get();
+        return (json_encode($report));
     }
 
     public function index()
@@ -41,18 +59,12 @@ class ReportController extends Controller
         ->groupBy(DB::raw('date(played_at)'))
         ->get();
 
-        $totalincome = DB::table('transactions')
-        ->join('schedules', 'transactions.schedule_id', '=', 'schedules.id')
-        ->join('fields', 'schedules.field_id', '=', 'fields.id')
-        ->join('customers','fields.customer_id','=','customers.id')
-        ->whereBetween('transactions.played_at',[date("y-m-d",strtotime($firstdate)),date("y-m-d",strtotime($seconddate))])
-        ->where('fields.customer_id',Auth::user()->id)
-        ->sum('price');
         
         // $report = Transaction::with('customer.field.shedule')->where('played_at',$month)->get();
         // return $report;
         return view('customer.reportDashboard')
-        ->with(['report' => $report,'firstdate' => $firstdate,'seconddate' => $seconddate,'totalincome'=>$totalincome]);
+        ->with(['report' => $report,'firstdate' => $firstdate,'seconddate' => $seconddate]);
+
     }
 
     /**
