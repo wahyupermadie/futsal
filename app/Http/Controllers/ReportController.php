@@ -13,7 +13,7 @@ use Validator;
 use Session;
 use Auth;
 use DB;
-use Chart;
+use Charts;
 
 class ReportController extends Controller
 {
@@ -59,11 +59,9 @@ class ReportController extends Controller
         ->groupBy(DB::raw('date(played_at)'))
         ->get();
 
-        
-        // $report = Transaction::with('customer.field.shedule')->where('played_at',$month)->get();
-        // return $report;
         return view('customer.reportDashboard')
-        ->with(['report' => $report,'firstdate' => $firstdate,'seconddate' => $seconddate]);
+        ->with(['report' => $report,'firstdate' => $firstdate,'seconddate' => $seconddate,'chart' => $report])
+        ->with(['chart'=> json_encode($report)]);
 
     }
 
@@ -109,7 +107,8 @@ class ReportController extends Controller
         ->get();
 
         return view('customer.reportDashboard')
-        ->with(['report' => $report,'firstdate' => $request->firstDate,'seconddate' => $request->secondDate]);
+        ->with(['report' => $report,'firstdate' => $request->firstDate,'seconddate' => $request->secondDate])
+        ->with(['chart'=>json_encode($report)]);
     }
     public function showDetail($date)
     {   

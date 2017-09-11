@@ -150,14 +150,14 @@
 <script>
 // $(document).ready(function(){
     $.ajax({
-        url: "http://127.0.0.1:8000/report/dashboard/chart",
-        method: "GET",
+        // url: "http://127.0.0.1:8000/report/dashboard/chart",
+        // method: "GET",
         success: function(response) {
-            var data = $.parseJSON(response);
-            // console.log(data);
+            var data_json = {!! json_encode($chart) !!};
+            var data = $.parseJSON(data_json);
+            console.log(data);
             var tanggal = [];
             var income = [];
-
             for(var i in data) {
                 tanggal.push(data[i].tanggal);
                 income.push(data[i].total_income);
