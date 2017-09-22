@@ -23,7 +23,7 @@ class FieldController extends Controller
     public function viewDashboard()
     {
         $jenisLapangan  = Category::with('field')->get();
-        $lapangan = Field::with('category')->where('customer_id',Auth::user()->id)->get();
+        $lapangan = Field::with('category')->where('futsal_id',Auth::user()->futsal_id)->get();
         return view('customer.fieldDashboard',['jenisLapangan'=>$jenisLapangan,'lapangan'=>$lapangan]);
     }
 
@@ -58,7 +58,7 @@ class FieldController extends Controller
         $request->picture->move(public_path('/images'), $namaFile);
         $lapangan = new Field($request->all());
         $lapangan -> picture = $namaFile;
-        $lapangan -> customer_id = Auth::user()->id;
+        $lapangan -> futsal_id = Auth::user()->futsal_id;
         $lapangan->save();
         return redirect('/customer/field');
     }
@@ -80,11 +80,9 @@ class FieldController extends Controller
      * @param  \App\Admin_model  $admin_model
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
+    public function edit(Field $field) {
         $category = Category::all();
-        $field = Field::with('category')->where('id',$id)->first();
-        return view('customer.fieldEdit')->with(['field'=>$field,'category'=>$category]);
+        return view('customer.fieldEdit', compact('field', 'category'));
     }
 
     /**

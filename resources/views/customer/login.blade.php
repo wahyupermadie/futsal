@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Bungloon - Sign in form</title>
+	<title>Futnet - Sign in form</title>
     <link href="{{ asset('style/login/css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('style/login/plugin/FontAwesome/css/font-awesome.min.css') }}" rel="stylesheet">
 </head>
@@ -37,8 +37,6 @@
 						<input type="password" name="password" class="form-input" placeholder="password">
 					</div>
 					<button type="submit" class="btn btn-success btn-block">Sign in</button>
-					<div class="form-text">
-						<span> Lupa password ? <a href="#"> klik disini</a> </span>
 				</form>
 			</div>
 		</div>

@@ -3987,6 +3987,7 @@ section.content {
     position: relative;
     overflow: hidden;
     margin-bottom: 30px;
+    margin-top:30px;
 }
 
 .info-box .icon {

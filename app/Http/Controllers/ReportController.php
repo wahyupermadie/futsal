@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\Transaction;
-use App\Customer;
+use App\Futsal;
 use App\Schedule;
 use App\Field;
 use Illuminate\Http\Request;
@@ -26,23 +26,6 @@ class ReportController extends Controller
         $this->middleware('auth:customer');
     }
 
-    public function chart()
-    {
-        $firstdate=date('l, d F Y');
-        $seconddate=date('l, d F Y',strtotime($firstdate." + 2 days"));
-        $month = date('m');
-        $report = DB::table('transactions')
-        ->join('schedules', 'transactions.schedule_id', '=', 'schedules.id')
-        ->join('fields', 'schedules.field_id', '=', 'fields.id')
-        ->join('customers','fields.customer_id','=','customers.id')
-        ->select(DB::raw('date(played_at) as tanggal'), DB::raw('sum(price) as total_income') )
-        ->whereBetween('transactions.played_at',[date("y-m-d",strtotime($firstdate)),date("y-m-d",strtotime($seconddate))])
-        ->where('fields.customer_id',Auth::user()->id)
-        ->groupBy(DB::raw('date(played_at)'))
-        ->get();
-        return (json_encode($report));
-    }
-
     public function index()
     {
 
@@ -52,10 +35,10 @@ class ReportController extends Controller
         $report = DB::table('transactions')
         ->join('schedules', 'transactions.schedule_id', '=', 'schedules.id')
         ->join('fields', 'schedules.field_id', '=', 'fields.id')
-        ->join('customers','fields.customer_id','=','customers.id')
+        ->join('futsals','fields.futsal_id','=','futsals.id')
         ->select(DB::raw('date(played_at) as tanggal'), DB::raw('sum(price) as total_income') )
         ->whereBetween('transactions.played_at',[date("y-m-d",strtotime($firstdate)),date("y-m-d",strtotime($seconddate))])
-        ->where('fields.customer_id',Auth::user()->id)
+        ->where('fields.futsal_id',Auth::user()->futsal_id)
         ->groupBy(DB::raw('date(played_at)'))
         ->get();
 
@@ -99,10 +82,10 @@ class ReportController extends Controller
         $report = DB::table('transactions')
         ->join('schedules', 'transactions.schedule_id', '=', 'schedules.id')
         ->join('fields', 'schedules.field_id', '=', 'fields.id')
-        ->join('customers','fields.customer_id','=','customers.id')
+        ->join('futsals','fields.futsal_id','=','futsals.id')
         ->select(DB::raw('date(played_at) as tanggal'), DB::raw('sum(price) as total_income') )
         ->whereBetween('transactions.played_at',[$firstdate, $seconddate])
-        ->where('fields.customer_id',Auth::user()->id)
+        ->where('fields.futsal_id',Auth::user()->futsal_id)
         ->groupBy(DB::raw('date(played_at)'))
         ->get();
 

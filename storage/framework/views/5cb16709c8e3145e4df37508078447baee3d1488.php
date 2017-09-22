@@ -27,13 +27,13 @@
                         <div class="body">
                             <!-- Nav tabs -->
                             <ul class="nav nav-tabs tab-nav-right" role="tablist">
-                                <li <?php if($day=="senin"): ?> class="active" <?php endif; ?>><a href='<?php echo e(url("jadwal/$field_id/senin")); ?>' >SENIN</a></li>
-                                <li <?php if($day=="selasa"): ?> class="active" <?php endif; ?>><a href='<?php echo e(url("jadwal/$field_id/selasa")); ?>' >SELASA</a></li>
-                                <li <?php if($day=="rabu"): ?> class="active" <?php endif; ?>><a href='<?php echo e(url("jadwal/$field_id/rabu")); ?>' >RABU</a></li>
-                                <li <?php if($day=="kamis"): ?> class="active" <?php endif; ?>><a href='<?php echo e(url("jadwal/$field_id/kamis")); ?>' >KAMIS</a></li>
-                                <li <?php if($day=="jumat"): ?> class="active" <?php endif; ?>><a href='<?php echo e(url("jadwal/$field_id/jumat")); ?>' >JUMAT</a></li>
-                                <li <?php if($day=="sabtu"): ?> class="active" <?php endif; ?>><a href='<?php echo e(url("jadwal/$field_id/sabtu")); ?>' >SABTU</a></li>
-                                <li <?php if($day=="minggu"): ?> class="active" <?php endif; ?>><a href='<?php echo e(url("jadwal/$field_id/minggu")); ?>'>MINGGU</a></li>
+                                <li <?php if($day=="senin"): ?> class="active" <?php endif; ?>><a href='<?php echo e(url("schedule/$field_id/senin")); ?>' >SENIN</a></li>
+                                <li <?php if($day=="selasa"): ?> class="active" <?php endif; ?>><a href='<?php echo e(url("schedule/$field_id/selasa")); ?>' >SELASA</a></li>
+                                <li <?php if($day=="rabu"): ?> class="active" <?php endif; ?>><a href='<?php echo e(url("schedule/$field_id/rabu")); ?>' >RABU</a></li>
+                                <li <?php if($day=="kamis"): ?> class="active" <?php endif; ?>><a href='<?php echo e(url("schedule/$field_id/kamis")); ?>' >KAMIS</a></li>
+                                <li <?php if($day=="jumat"): ?> class="active" <?php endif; ?>><a href='<?php echo e(url("schedule/$field_id/jumat")); ?>' >JUMAT</a></li>
+                                <li <?php if($day=="sabtu"): ?> class="active" <?php endif; ?>><a href='<?php echo e(url("schedule/$field_id/sabtu")); ?>' >SABTU</a></li>
+                                <li <?php if($day=="minggu"): ?> class="active" <?php endif; ?>><a href='<?php echo e(url("schedule/$field_id/minggu")); ?>'>MINGGU</a></li>
                             </ul>
                             <div class="row">
                                 <table class="table bordered" id="table-input">
@@ -67,8 +67,8 @@
                                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </tbody>
                                 </table>
-                                <a href='<?php echo e(url("jadwal/$field_id/$day/create")); ?>' class="btn btn-primary">Edit Jadwal</a>
-                                <form action='<?php echo e(url("jadwal/$field_id/$day/copy")); ?>' method="post">
+                                <a href='<?php echo e(url("schedule/$field_id/$day/create")); ?>' class="btn btn-primary">Edit Jadwal</a>
+                                <form action='<?php echo e(url("schedule/$field_id/$day/copy")); ?>' method="post">
                                     <?php echo e(csrf_field()); ?>
 
                                     <input type="hidden" name="from" value="1">

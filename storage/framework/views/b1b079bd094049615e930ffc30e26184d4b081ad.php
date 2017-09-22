@@ -6,38 +6,6 @@
     <!-- Widgets -->
     <div class="row clearfix">
         <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-            <div class="info-box bg-pink hover-expand-effect">
-                <div class="icon">
-                    <i class="material-icons">playlist_add_check</i>
-                </div>
-                <div class="content">
-                    <div class="text">TOTAL MEMBER</div>
-                    <div class="number count-to" data-from="0" data-to="125" data-speed="15" data-fresh-interval="20"></div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-            <div class="info-box bg-light-green hover-expand-effect">
-                <div class="icon">
-                    <i class="material-icons">person_add</i>
-                </div>
-                <div class="content">
-                    <div class="text">BOOKING</div>
-                    <div class="number count-to" data-from="0" data-to="243" data-speed="1000" data-fresh-interval="20"></div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-            <div class="info-box bg-orange hover-expand-effect">
-                <div class="icon">
-                    <i class="material-icons">person</i>
-                </div>
-                <div class="content">
-                    <div class="text">CANCEL BOOKING</div>
-                    <div class="number count-to" data-from="0" data-to="1225" data-speed="1000" data-fresh-interval="20"></div>
-                </div>
-            </div>
-        </div>
     </div>
 </div>
 <!-- #END# Widgets -->
@@ -51,18 +19,6 @@
                             <h2>FUTSAL DASHBOARD <?php echo e($date); ?></h2>
                         </div>
                     </div>
-                    <ul class="header-dropdown m-r--5">
-                        <li class="dropdown">
-                            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                <i class="material-icons">more_vert</i>
-                            </a>
-                            <ul class="dropdown-menu pull-right">
-                                <li><a href="javascript:void(0);">Action</a></li>
-                                <li><a href="javascript:void(0);">Another action</a></li>
-                                <li><a href="javascript:void(0);">Something else here</a></li>
-                            </ul>
-                        </li>
-                    </ul>
                 </div>
                 <div class="body">
                     <form action="#" method="GET">
@@ -286,14 +242,8 @@ $(".success-trans").click(function(e){
 <!-- Jquery CountTo Plugin Js -->
 <script src="<?php echo e(asset('style/plugins/jquery-countto/jquery.countTo.js')); ?>"></script>
 <!-- Flot Charts Plugin Js -->
-<script src="<?php echo e(asset('style/plugins/flot-charts/jquery.flot.js')); ?>"></script>
-<script src="<?php echo e(asset('style/plugins/flot-charts/jquery.flot.resize.js')); ?>"></script>
-<script src="<?php echo e(asset('style/plugins/flot-charts/jquery.flot.pie.js')); ?>"></script>
-<script src="<?php echo e(asset('style/plugins/flot-charts/jquery.flot.categories.js')); ?>"></script>
-<script src="<?php echo e(asset('style/plugins/flot-charts/jquery.flot.time.js')); ?>"></script>
-
 <!-- Custom Js -->
-<script src="<?php echo e(asset('style/js/admin.js')); ?>"></script>
+<!-- <script src="<?php echo e(asset('style/js/admin.js')); ?>"></script> -->
 <script src="<?php echo e(asset('style/js/pages/index.js')); ?>"></script>
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('templatesFutsal.layout', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

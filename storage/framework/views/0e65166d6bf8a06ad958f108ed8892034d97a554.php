@@ -3,31 +3,11 @@
             <!-- User Info -->
             <div class="user-info">
                 <div class="image">
-                    <img src="<?php echo e(asset('images/users/user.png')); ?>" width="48" height="48" alt="User" />
+                    <img src="<?php echo e(asset('images/customer_futsal/'.Auth::user()->picture)); ?>" width="48" height="48" alt="User" />
                 </div>
                 <div class="info-container">
-                    <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php echo e(Auth::user()->name); ?></div>
-                    <div class="email"><?php echo e(Auth::user()->email); ?></div>
-                    <div class="btn-group user-helper-dropdown">
-                        <i class="material-icons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">keyboard_arrow_down</i>
-                        <ul class="dropdown-menu pull-right">
-                            <li><a href="javascript:void(0);"><i class="material-icons">person</i>Profile</a></li>
-                            <li role="seperator" class="divider"></li>
-                            <li><a href="javascript:void(0);"><i class="material-icons">group</i>Followers</a></li>
-                            <li><a href="javascript:void(0);"><i class="material-icons">shopping_cart</i>Sales</a></li>
-                            <li><a href="javascript:void(0);"><i class="material-icons">favorite</i>Likes</a></li>
-                            <li role="seperator" class="divider"></li>
-                            <li>
-                            <a class="material-icons" href="<?php echo e(route('customer.logout')); ?>" onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                            <i class="material-icons">input</i>Sign out</a>
-                                <form id="logout-form" action="<?php echo e(route('customer.logout')); ?>" method="POST" style="display: none;">
-                                <?php echo e(csrf_field()); ?>
-
-                                </form>
-                            </li>
-                        </ul>
-                    </div>
+                    <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php echo e($futsal->name); ?></div>
+                    <div class="email"><?php echo e(Auth::user()->name); ?></div>
                 </div>
             </div>
             <!-- #User Info -->
@@ -35,26 +15,26 @@
             <div class="menu">
                 <ul class="list">
                     <li class="header">MAIN NAVIGATION</li>
-                    <li class="active">
-                        <a href="<?php echo e((URL('/customer/home'))); ?>">
-                            <i class="material-icons">home</i>
+                    <li <?php if( Request::segment(1) === 'home'): ?> class="active" <?php endif; ?>>
+                        <a href="<?php echo e((URL('/home'))); ?>">
+                            <i  class="material-icons">home</i>
                             <span>Home</span>
                         </a>
                     </li>
-                    <li>
-                        <a href="<?php echo e(URL('/customer/field')); ?>">
+                    <li <?php if( Request::segment(1) === 'field'): ?> class="active" <?php endif; ?>>
+                        <a href="<?php echo e(URL('/field')); ?>">
                             <i class="material-icons">assignment</i>
                             <span>Tambah Lapangan</span>
                         </a>
                     </li>
-                    <li>
-                        <a href="<?php echo e(URL('/customer/schedule')); ?>">
+                    <li <?php if( Request::segment(1) === 'schedule'): ?> class="active" <?php endif; ?>>
+                        <a href="<?php echo e(URL('/schedule')); ?>">
                             <i class="material-icons">assignment</i>
                             <span>Tambah Jadwal</span>
                         </a>
                     </li>
-                    <li>
-                        <a href="<?php echo e(URL('report/dashboard')); ?>">
+                    <li <?php if( Request::segment(1) === 'report'): ?> class="active" <?php endif; ?>>
+                        <a href="<?php echo e(URL('/report')); ?>">
                             <i class="material-icons">assignment</i>
                             <span>Lihat Report</span>
                         </a>

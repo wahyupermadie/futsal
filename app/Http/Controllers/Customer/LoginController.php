@@ -27,7 +27,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/';
+    protected $redirectTo = '/home';
 
     /**
      * Create a new controller instance.
@@ -41,15 +41,34 @@ class LoginController extends Controller
 
     public function showLoginForm()
     {
-        return view('customer.login');
+        if(Auth::check()){
+            redirect('/home');
+        }else{
+            return view('customer.login1');
+        }
     }
+    
+    // protected function credentials(Request $request)
+    // {
+    //     $field = filter_var($request->get($this->username()), FILTER_VALIDATE_EMAIL)
+    //         ? $this->username()
+    //         : 'username';
 
+    //     return [
+    //         $field => $request->get($this->username()),
+    //         'password' => $request->password,
+    //     ];
+    // }
+    public function username()
+    {
+        return 'username';
+    }
     public function logout(Request $request)
     {
         $this->guard()->logout();
         $request->session()->flush();
         $request->session()->regenerate();
-        return redirect('/customer');
+        return redirect('/');
     }
 
     /**

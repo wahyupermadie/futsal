@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Futsal;
 use App\Field;
 use App\Category;
 use App\Schedule;
@@ -26,6 +27,14 @@ class CustomerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function profile()
+    {
+        return view('customer.customerProfile');
+    }
+    public function show(Futsal $futsal)
+    {
+        return view('includes.header', compact($futsal));
+    }
     public function index(Request $request){
         $date=$request->date;
         if (is_null($date)||empty($date)) {
@@ -43,7 +52,7 @@ class CustomerController extends Controller
             ->where('played_at',$date)
             ->where('status','!=','cancel');
         }
-        ])->where('customer_id',Auth::user()->id)->get();
+        ])->where('futsal_id',Auth::user()->futsal_id)->get();
         return view('customer.index')
         ->with(['field'=>$field,'date'=>$date]);
     }

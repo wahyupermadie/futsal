@@ -11,36 +11,38 @@
 |
 */
 
-Route::get('/','CustomerController@index');
+// Route::get('/','CustomerController@index');
 
 Auth::routes();
-Route::get('/home', 'HomeController@index')->name('home');
-
+// Route::get('/home', 'HomeController@index')->name('home');
+//CUSTOMER
+Route::GET('/profile','CustomerController@profile');
 //ADMIN AUTH
-Route::GET('customer/home','CustomerController@index');
+Route::GET('/home','CustomerController@index');
 Route::POST('login/customer','Customer\LoginController@login')->name('login.customer');
-Route::GET('customer/form','Customer\LoginController@showLoginForm')->name('customer.loginForm');
+Route::GET('/','Customer\LoginController@showLoginForm')->name('customer.loginForm');
 Route::POST('logout','Customer\LoginController@logout')->name('customer.logout');
 Route::POST('customer-password/email','Customer\ForgotPasswordController@sendResetLinkEmail')->name('customer.password.email');
 Route::GET('customer-password/reset','Customer\ForgotPasswordController@showLinkRequestForm')->name('customer.password.request');
 Route::POST('customer-password/reset','Customer\ResetPasswordController@reset');
 Route::GET('customer-password/reset/{token}','Customer\ResetPasswordController@showResetForm')->name('customer.password.reset');
-Route::POST('register','Customer\RegisterController@register');
-Route::GET('register','Customer\RegisterController@showRegistrationForm')->name('customer.register');
+Route::POST('register_customer','Customer\RegisterController@register')->name('customer.register');
+Route::GET('registerform','Customer\RegisterController@showRegistrationForm')->name('customer.registerForm');
 
 //FIELD DASHBOARD
-Route::resource('lapangan','FieldController');
+Route::resource('field','FieldController');
 
 //SCHEDULE DASHBOARD
-Route::GET('customer/schedule','ScheduleController@index');
-Route::GET('jadwal/{id}/{day}','ScheduleController@viewScheduleByDay');
-Route::GET('jadwal/{id}/{day}/create','ScheduleController@create');
-Route::POST('jadwal/{id}/{day}/store','ScheduleController@store');
-Route::POST('jadwal/{id}/{day}/copy','ScheduleController@copy');
+Route::GET('/schedule','ScheduleController@index');
+Route::GET('schedule/{id}/{day}','ScheduleController@viewScheduleByDay');
+Route::GET('schedule/{id}/{day}/create','ScheduleController@create');
+Route::POST('schedule/{id}/{day}/store','ScheduleController@store');
+Route::POST('schedule/{id}/{day}/copy','ScheduleController@copy');
 
 
 //FIELD DASHBOARD
-Route::GET('customer/field','FieldController@viewDashboard');
+Route::GET('/field','FieldController@viewDashboard');
+Route::GET('field/{field}/edit', 'FieldController@edit')->middleware('can:view,field');
 Route::resource('customer','FieldController');
 
 
@@ -54,9 +56,9 @@ Route::GET('transaction/user/{transaksi}','TransactionController@viewUser');
 Route::resource('transaction','TransactionController');
 
 //REPORT DASHBOARD
-route::GET('report/dashboard','ReportController@index');
-route::GET('report/dashboard/chart','ReportController@chart');
-route::GET('report','ReportController@showReport');
+route::GET('/report','ReportController@index');
+route::GET('report/chart','ReportController@chart');
+route::GET('report/show','ReportController@showReport');
 route::GET('report/detail/{date}','ReportController@showDetail');
 
 //API

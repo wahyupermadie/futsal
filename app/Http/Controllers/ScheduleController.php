@@ -24,7 +24,7 @@ class ScheduleController extends Controller
     public function index()
     {
         // $kategori = Category::all();
-        $field = Field::with('category')->where('customer_id',Auth::user()->id)->get();
+        $field = Field::with('category')->where('futsal_id',Auth::user()->futsal_id)->get();
         return view('customer.scheduleDashboard',['field' => $field]);
     }
 
@@ -44,7 +44,7 @@ class ScheduleController extends Controller
         }else if ($day=='minggu') {
             $day_id=7;
         }else {
-            return redirect("/jadwal/".$field_id."/senin");
+            return redirect("/schedule/".$field_id."/senin");
         }
 
         $schedules = Schedule::where([['field_id',$field_id],['day_id',$day_id]])->get();

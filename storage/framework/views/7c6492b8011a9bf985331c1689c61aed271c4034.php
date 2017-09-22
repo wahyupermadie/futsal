@@ -13,18 +13,6 @@
                     <div class="card">
                         <div class="header">
                             <h2>FORM TAMBAH LAPANGAN</h2>
-                            <ul class="header-dropdown m-r--5">
-                                <li class="dropdown">
-                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                        <i class="material-icons">more_vert</i>
-                                    </a>
-                                    <ul class="dropdown-menu pull-right">
-                                        <li><a href="javascript:void(0);">Action</a></li>
-                                        <li><a href="javascript:void(0);">Another action</a></li>
-                                        <li><a href="javascript:void(0);">Something else here</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
                         </div>
                         <div class="body">
                             <!-- Nav tabs -->
@@ -35,7 +23,7 @@
                             <!-- Tab panes -->
                             <div class="tab-content">
                                 <div role="tabpanel" class="tab-pane fade in active" id="addField">
-                                    <form id="form_validation" enctype="multipart/form-data" method="POST" action="<?php echo e(route('lapangan.store')); ?>">
+                                    <form id="form_validation" enctype="multipart/form-data" method="POST" action="<?php echo e(route('field.store')); ?>">
                                     <?php echo e(csrf_field()); ?>
 
                                         <div class="form-line">
@@ -97,7 +85,7 @@
                                                     <td><img src="<?php echo e(asset('images/'.$value->picture)); ?>" style="width:200px" alt=""></td>
                                                     <td><?php echo e($value->category->name); ?></td>
                                                     <td>
-                                                       <a href="<?php echo e(url('lapangan/'.$value->id.'/edit')); ?>" class="btn btn-success">EDIT</a>
+                                                       <a href="<?php echo e(url('field/'.$value->id.'/edit')); ?>" class="btn btn-success">EDIT</a>
                                                     
                                                         <form method="POST">
                                                             <button type="submit" class="btn btn-danger" >DELETE</button>

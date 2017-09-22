@@ -10,21 +10,9 @@
 <div class="card">
 <div class="header">
     <h2>FORM EDIT LAPANGAN</h2>
-        <ul class="header-dropdown m-r--5">
-            <li class="dropdown">
-                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                    <i class="material-icons">more_vert</i>
-                </a>
-                <ul class="dropdown-menu pull-right">
-                    <li><a href="javascript:void(0);">Action</a></li>
-                    <li><a href="javascript:void(0);">Another action</a></li>
-                    <li><a href="javascript:void(0);">Something else here</a></li>
-                </ul>
-            </li>
-         </ul>
 </div>
     <div class="body">
-        <form method="POST" enctype="multipart/form-data" action='{{url("lapangan/$field->id")}}'>
+        <form method="POST" enctype="multipart/form-data" action='{{url("field/$field->id")}}'>
             {{csrf_field()}}
             <div class="form-line">
                 <label>Nama Lapangan</label>
@@ -50,7 +38,7 @@
             </div>
             <div class="form-group">
                 <input type="hidden" name="_method" value="PUT">
-                <button style="margin-top:5px;" type="submit"class="btn btn-success">SAVE</button>
+                <button style="margin-top:5px;" type="submit" class="btn btn-success">SAVE</button>
             </div>
         </form> 
     </div>   

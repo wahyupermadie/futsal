@@ -9,8 +9,7 @@ use App\Schedule;
 use App\Offline;
 
 class TransactionController extends Controller
-{
-    
+{   
     public function __construct(){
         $this->middleware('auth:customer');
     } 

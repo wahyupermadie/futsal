@@ -28,13 +28,13 @@
                         <div class="body">
                             <!-- Nav tabs -->
                             <ul class="nav nav-tabs tab-nav-right" role="tablist">
-                                <li @if($day=="senin") class="active" @endif><a href='{{url("jadwal/$field_id/senin")}}' >SENIN</a></li>
-                                <li @if($day=="selasa") class="active" @endif><a href='{{url("jadwal/$field_id/selasa")}}' >SELASA</a></li>
-                                <li @if($day=="rabu") class="active" @endif><a href='{{url("jadwal/$field_id/rabu")}}' >RABU</a></li>
-                                <li @if($day=="kamis") class="active" @endif><a href='{{url("jadwal/$field_id/kamis")}}' >KAMIS</a></li>
-                                <li @if($day=="jumat") class="active" @endif><a href='{{url("jadwal/$field_id/jumat")}}' >JUMAT</a></li>
-                                <li @if($day=="sabtu") class="active" @endif><a href='{{url("jadwal/$field_id/sabtu")}}' >SABTU</a></li>
-                                <li @if($day=="minggu") class="active" @endif><a href='{{url("jadwal/$field_id/minggu")}}'>MINGGU</a></li>
+                                <li @if($day=="senin") class="active" @endif><a href='{{url("schedule/$field_id/senin")}}' >SENIN</a></li>
+                                <li @if($day=="selasa") class="active" @endif><a href='{{url("schedule/$field_id/selasa")}}' >SELASA</a></li>
+                                <li @if($day=="rabu") class="active" @endif><a href='{{url("schedule/$field_id/rabu")}}' >RABU</a></li>
+                                <li @if($day=="kamis") class="active" @endif><a href='{{url("schedule/$field_id/kamis")}}' >KAMIS</a></li>
+                                <li @if($day=="jumat") class="active" @endif><a href='{{url("schedule/$field_id/jumat")}}' >JUMAT</a></li>
+                                <li @if($day=="sabtu") class="active" @endif><a href='{{url("schedule/$field_id/sabtu")}}' >SABTU</a></li>
+                                <li @if($day=="minggu") class="active" @endif><a href='{{url("schedule/$field_id/minggu")}}'>MINGGU</a></li>
                             </ul>
                             <div class="row">
                                 <table class="table bordered" id="table-input">
@@ -65,8 +65,8 @@
                                         @endforeach
                                     </tbody>
                                 </table>
-                                <a href='{{url("jadwal/$field_id/$day/create")}}' class="btn btn-primary">Edit Jadwal</a>
-                                <form action='{{url("jadwal/$field_id/$day/copy")}}' method="post">
+                                <a href='{{url("schedule/$field_id/$day/create")}}' class="btn btn-primary">Edit Jadwal</a>
+                                <form action='{{url("schedule/$field_id/$day/copy")}}' method="post">
                                     {{csrf_field()}}
                                     <input type="hidden" name="from" value="1">
                                     <button type="submit">Copy From Senin</button>

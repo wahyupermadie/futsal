@@ -41,7 +41,7 @@
                                                     </td>
                                                 </tr>
                                             </table>
-                                            <p><a class="btn btn-primary" href='{{url("/jadwal/$value->id/create")}}'>Edit Jadwal</a></p>
+                                            <p><a class="btn btn-primary" href='{{url("schedule/$value->id/senin")}}'>Edit Jadwal</a></p>
                                         </div>
                                     </div>
                                 </div>

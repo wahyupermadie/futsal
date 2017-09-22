@@ -25,18 +25,8 @@
                             </ul>
                         </div>
                         <div class="body">
-                            <!-- Nav tabs -->
-                            <ul class="nav nav-tabs tab-nav-right" role="tablist">
-                                <li class="active"><a href="#senin" data-toggle="tab">SENIN</a></li>
-                                <li><a href="#selasa" data-toggle="tab">SELASA</a></li>
-                                <li><a href="#rabu" data-toggle="tab">RABU</a></li>
-                                <li><a href="#kamis" data-toggle="tab">KAMIS</a></li>
-                                <li><a href="#jumat" data-toggle="tab">JUMAT</a></li>
-                                <li><a href="#sabtu" data-toggle="tab">SABTU</a></li>
-                                <li><a href="#minggu" data-toggle="tab">MINGGU</a></li>
-                            </ul>
                             <div class="row">
-                                <form method="POST" id="schedule_form" action='<?php echo e(url("jadwal/{$field_id}/$day/store")); ?>'>
+                                <form method="POST" id="schedule_form" action='<?php echo e(url("schedule/{$field_id}/$day/store")); ?>'>
                                 <?php echo e(csrf_field()); ?>
 
                                     <table class="table bordered" id="table-input">
