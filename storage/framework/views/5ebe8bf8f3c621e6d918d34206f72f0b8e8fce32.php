@@ -14,9 +14,8 @@
                             <i class="material-icons">group</i>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="javascript:void(0);"><i class="material-icons">person</i>Profile</a></li>
+                            <li><a href="<?php echo e(url('/profile')); ?>"><i class="material-icons">person</i>Profile</a></li>
                             <li role="seperator" class="divider"></li>
-                            <li><a href="javascript:void(0);"><i class="material-icons">shopping_cart</i>Sales</a></li>
                             <li>
                                 <a href="<?php echo e(route('customer.logout')); ?>" onclick="event.preventDefault();
                                 document.getElementById('logout-form').submit();">

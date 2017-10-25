@@ -10,6 +10,8 @@
     <!-- Bootstrap Core Css -->
     <link href="{{ asset('style/plugins/bootstrap/css/bootstrap.css') }}" rel="stylesheet">
     <!-- Waves Effect Css -->
+    <link href="{{asset('css/noty.css')}}" rel="stylesheet">
+    <link href="{{asset('css/noty.css.map')}}" rel="stylesheet">
     <link href="{{ asset('style/plugins/node-waves/waves.css') }}" rel="stylesheet" />
     <!-- Animation Css -->
     <link href="{{ asset('style/plugins/animate-css/animate.css') }}" rel="stylesheet" />

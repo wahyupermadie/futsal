@@ -13,9 +13,11 @@
     "axios": "^0.15.3",
     "bootstrap-sass": "^3.3.7",
     "cross-env": "^3.2.3",
+    "gan": "0.0.1",
     "jquery": "^3.1.1",
     "laravel-mix": "0.*",
     "lodash": "^4.17.4",
+    "noty": "^3.1.0",
     "vue": "^2.1.10"
   },
   "dependencies": {

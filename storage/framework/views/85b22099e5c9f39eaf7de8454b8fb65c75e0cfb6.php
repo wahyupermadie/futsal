@@ -10,6 +10,8 @@
     <!-- Bootstrap Core Css -->
     <link href="<?php echo e(asset('style/plugins/bootstrap/css/bootstrap.css')); ?>" rel="stylesheet">
     <!-- Waves Effect Css -->
+    <link href="<?php echo e(asset('css/noty.css')); ?>" rel="stylesheet">
+    <link href="<?php echo e(asset('css/noty.css.map')); ?>" rel="stylesheet">
     <link href="<?php echo e(asset('style/plugins/node-waves/waves.css')); ?>" rel="stylesheet" />
     <!-- Animation Css -->
     <link href="<?php echo e(asset('style/plugins/animate-css/animate.css')); ?>" rel="stylesheet" />

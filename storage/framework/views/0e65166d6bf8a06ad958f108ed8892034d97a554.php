@@ -3,7 +3,7 @@
             <!-- User Info -->
             <div class="user-info">
                 <div class="image">
-                    <img src="<?php echo e(asset('images/customer_futsal/'.Auth::user()->picture)); ?>" width="48" height="48" alt="User" />
+                    <img src="<?php echo e(asset('images/customer_user/'.Auth::user()->picture)); ?>" width="50" height="50" alt="User" />
                 </div>
                 <div class="info-container">
                     <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php echo e($futsal->name); ?></div>
@@ -37,6 +37,12 @@
                         <a href="<?php echo e(URL('/report')); ?>">
                             <i class="material-icons">assignment</i>
                             <span>Lihat Report</span>
+                        </a>
+                    </li>
+                    <li <?php if( Request::segment(1) === 'profile'): ?> class="active" <?php endif; ?>>
+                        <a href="<?php echo e((URL('/profile'))); ?>">
+                            <i  class="material-icons">assignment</i>
+                            <span>Profile</span>
                         </a>
                     </li>
                 </ul>

@@ -50,7 +50,9 @@
     <section class="content">
         @yield('content')
     </section>
+    
     @include('templatesFutsal.includes.foot')
+    @include('sweet::alert')
     @section('js')
     
     @show

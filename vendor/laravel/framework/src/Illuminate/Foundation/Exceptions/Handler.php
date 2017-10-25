@@ -106,14 +106,26 @@ class Handler implements ExceptionHandlerContract
      */
     public function render($request, Exception $e)
     {
-        $e = $this->prepareException($e);
 
-        if ($e instanceof HttpResponseException) {
-            return $e->getResponse();
-        } elseif ($e instanceof AuthenticationException) {
-            return $this->unauthenticated($request, $e);
-        } elseif ($e instanceof ValidationException) {
-            return $this->convertValidationExceptionToResponse($e, $request);
+        if ($e instanceof Illuminate\Auth\Access\AuthorizationException) {
+            return redirect(url('path/to/redirect'));
+        }elseif($e instanceof NotFoundHttpException){
+            switch ($e->getStatusCode()) 
+                {
+                // not found
+                case 404:
+                return redirect()->guest('/error');
+                break;
+
+                // internal error
+                case 500:
+                return redirect()->guest('home');
+                break;
+
+                default:
+                    return $this->renderHttpException($e);
+                break;
+            }
         }
 
         return $this->prepareResponse($request, $e);

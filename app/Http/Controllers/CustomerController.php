@@ -4,11 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Futsal;
 use App\Field;
+use App\Employee;
 use App\Category;
 use App\Schedule;
 use App\Transaction;
 use Illuminate\Http\Request;
 use Auth;
+use Session;
+use Alert;
 class CustomerController extends Controller
 {
     /**
@@ -27,10 +30,37 @@ class CustomerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function profile()
+
+    public function error()
     {
-        return view('customer.customerProfile');
+        return view('customer.error');
     }
+    public function profile()
+    {   
+        if((Auth::user()->privilege_id) == 1){
+            $staffs = Employee::all()->where('futsal_id',Auth::user()->futsal_id)
+            ->where('privilege_id','2');
+            return view('customer.customerProfile', compact('staffs'));
+        }elseif((Auth::user()->privilege_id) == 2){
+            return view('customer.customerProfile');
+        }
+    }
+
+    public function profileUpdate(Request $request, $id){
+        
+        $employee = Employee::find($id);
+        $employee->name = $request->name;
+        $employee->phone = $request->phone;
+        $employee->address = $request->address;
+        $avatar = $request->file('avatar');
+        $fileName = $employee->username.'.'.$avatar->extension();
+        $request->avatar->move(public_path('/images/customer_user'), $fileName);
+        $employee->picture = $fileName;
+        $employee->save();
+        // Session::flash('success', 'Profile Berhasil di Update');
+        return redirect()->back()->with('success','Selamat Profile Sudah Berhaisl di Perbaharui!'); 
+    }
+
     public function show(Futsal $futsal)
     {
         return view('includes.header', compact($futsal));

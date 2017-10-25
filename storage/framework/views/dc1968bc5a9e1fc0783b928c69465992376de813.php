@@ -50,7 +50,9 @@
     <section class="content">
         <?php echo $__env->yieldContent('content'); ?>
     </section>
+    
     <?php echo $__env->make('templatesFutsal.includes.foot', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+    <?php echo $__env->make('sweet::alert', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
     <?php $__env->startSection('js'); ?>
     
     <?php echo $__env->yieldSection(); ?>

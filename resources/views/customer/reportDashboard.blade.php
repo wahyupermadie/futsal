@@ -23,6 +23,7 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
                         <div class="body">
+                            <!-- @if((Auth::user()->privillege_id)==1) -->
                             <div class="row clearfix">
                                 <form action="{{url('report/show')}}" method="GET">
                                 {{--  {{csrf_field()}}  --}}
@@ -47,6 +48,7 @@
                                 </div>
                                 </form>
                             </div>
+                            <!-- @endif -->
                             <div class="row clearfix">
                                 <!-- <div class="col-lg-6 "> -->
                                     <div class="card">
@@ -110,9 +112,8 @@
 <script src="{{ asset('style/plugins/jquery-datatable/extensions/export/pdfmake.min.js') }}"></script>
 <script src="{{ asset('style/plugins/jquery-datatable/extensions/export/vfs_fonts.js') }}"></script>
 <script src="{{ asset('style/plugins/jquery-datatable/extensions/export/buttons.html5.min.js') }}"></script>
-<script src="{{ asset('style/plugins/jquery-datatable/extensions/export/buttons.print.min.js') }}"></script>
-
-<!-- Autosize Plugin Js -->
+43
+<!                                  -- Autosize Plugin Js -->
 <script src="{{ asset('style/plugins/autosize/autosize.js')}}"></script>
 
 <!-- Chart Plugins Js -->

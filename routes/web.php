@@ -15,8 +15,11 @@
 
 Auth::routes();
 // Route::get('/home', 'HomeController@index')->name('home');
+
 //CUSTOMER
 Route::GET('/profile','CustomerController@profile');
+Route::PUT('/profile/{id}','CustomerController@profileUpdate');
+
 //ADMIN AUTH
 Route::GET('/home','CustomerController@index');
 Route::POST('login/customer','Customer\LoginController@login')->name('login.customer');
@@ -45,7 +48,8 @@ Route::GET('/field','FieldController@viewDashboard');
 Route::GET('field/{field}/edit', 'FieldController@edit')->middleware('can:view,field');
 Route::resource('customer','FieldController');
 
-
+//ERROR PAGE
+Route::GET('/error','CustomerController@error');
 
 //TRANSACTION DASHBOARD
 Route::PUT('transaction/{id}/{type}','TransactionController@updateType');

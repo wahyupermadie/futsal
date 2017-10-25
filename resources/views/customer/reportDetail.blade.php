@@ -23,7 +23,7 @@
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <div class="card">
                             <div class="body">
-                                <div class="row clearfix">
+                            <div class="row clearfix">
                                 <form action="{{url('report/show')}}" method="GET">
                                  {{csrf_field()}} 
                                     <div class="col-sm-4">
@@ -46,7 +46,7 @@
                                     </div>
                                 </div>
                             </form>
-                        </div>  --}}
+                        </div> 
                         <ul class="nav nav-tabs tab-nav-right" role="tablist">
                             <?php $first=true; ?>
                             @foreach($detail as $value)

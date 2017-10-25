@@ -30,4 +30,9 @@ class Employee extends Authenticatable
     public function field(){
         return $this->hasMany('App\Futsal');
     }
+
+    function privillege()
+    {
+        return $this->belongsTo('App\Privillege');
+    }
 }

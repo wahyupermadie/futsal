@@ -17,7 +17,7 @@ class ViewComposerServiceProvider extends ServiceProvider
     public function boot()
     {
         $futsal='';
-        view()->composer(['customer.index','customer.fieldDashboard','customer.fieldEdit','customer.scheduleDashboard','customer.scheduleOffline','customer.schedulePending','customer.scheduleSuccess','customer.viewSchedule','customer.reportDashboard','customer.reportDetail','customer.customerProfile'], function ($view) use($futsal) {
+        view()->composer(['customer.index','customer.fieldDashboard','customer.fieldEdit','customer.scheduleDashboard','customer.scheduleOffline','customer.schedulePending','customer.scheduleSuccess','customer.viewSchedule','customer.reportDashboard','customer.reportDetail','customer.customerProfile','customer.customerProfile1'], function ($view) use($futsal) {
             $futsal = (Futsal::select('name')->where('id', '=', Auth::user()->futsal_id))->first();
             $view->with('futsal', $futsal);
         });
